@@ -10,6 +10,10 @@ class User(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(40))
+    last_name = db.Column(db.String(40))
+    pseudonym = db.Column(db.String(80))
+    bio = db.Column(db.String(5000))
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
@@ -28,6 +32,10 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             'id': self.id,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'pseudonym': self.pseudonym,
+            'bio': self.bio,
             'username': self.username,
             'email': self.email
         }
