@@ -26,5 +26,5 @@ class World(db.Model):
             'name': self.name,
             'description': self.description,
             'notes': self.notes,
-            'locations': [loc.to_dict() for loc in self.locations]
+            # 'locations': [loc.to_dict() for loc in self.locations]
         }

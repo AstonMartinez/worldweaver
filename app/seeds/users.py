@@ -82,9 +82,37 @@ def seed_users():
     db.session.add_all([location1, location2, location3, location4, location5])
     db.session.commit()
 
+    faction1 = Faction(
+        book_id=1,
+        name='The Radiant Guardians',
+        details="The Radiant Guardians are an ancient order dedicated to preserving the balance of magic in Eldoria. Composed of skilled mages, healers, and defenders, their purpose is to safeguard the Nexus and prevent the misuse of its power. They are known for their selfless acts, healing the wounded, and maintaining harmony within Eldoria.",
+        allegiance='Good',
+        location_id=3
+    )
+
+    faction2 = Faction(
+        book_id=1,
+        name='The Shadow Coven',
+        details="The Shadow Coven is a clandestine group that seeks to exploit the Ephemeral Nexus for dark purposes. Comprising rogue sorcerers and mercenaries, their insidious rituals threaten to unleash a shadowy force that could consume Eldoria. Their motives are shrouded in secrecy, and whispers of malevolent plots surround their every move.",
+        allegiance="Bad",
+        location_id=4
+    )
+
+    faction3 = Faction(
+        book_id=1,
+        name='The Astral Nomads',
+        details="The Astral Nomads are wanderers who traverse the celestial realms, detached from the conflicts of Eldoria. They seek knowledge and understanding of the Nexus but maintain a stance of neutrality in worldly affairs. Their nomadic lifestyle, guided by the stars, brings them into contact with various factions, yet they remain enigmatic in their allegiance.",
+        allegiance="Neutral",
+        location_id=5
+    )
+
+    db.session.add_all([faction1, faction2, faction3])
+    db.session.commit()
+
     book1_character1 = Character(
         book_id=1,
         world_id=1,
+        faction_id=1,
         name='Evelyn Mistral',
         traits='Mystical, Observant, Empathetic',
         personality='Reserved yet Commanding, Wise Beyond Years',
@@ -96,6 +124,7 @@ def seed_users():
     book1_character2 = Character(
         book_id=1,
         world_id=1,
+        faction_id=2,
         name='Gideon Shadowthorn',
         traits='Brooding, Agile, Skilled with Blades',
         personality='Cautious, Driven by Visions, Heart of Gold',
@@ -107,6 +136,7 @@ def seed_users():
     book1_character3 = Character(
         book_id=1,
         world_id=1,
+        faction_id=1,
         name='Aurelia Swiftwind',
         traits='Graceful, Sharp-eyed, Connected to Nature',
         personality='Loyal, Free-spirited, Oath-bound Protector',

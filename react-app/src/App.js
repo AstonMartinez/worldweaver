@@ -7,6 +7,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import Dashboard from "./components/Dashboard";
+import BookDetails from "./components/BookDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,9 @@ function App() {
           </Route>
           <Route exact path="/">
             {sessionUser ? <Dashboard /> : <LandingPage />}
+          </Route>
+          <Route exact path="/books/:bookId">
+            <BookDetails />
           </Route>
         </Switch>
       )}

@@ -11,7 +11,8 @@ class Faction(db.Model):
     book_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("books.id")), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     details = db.Column(db.String(5000))
-    details = db.Column(db.String(5000))
+    allegiance = db.Column(db.String(255))
+    location_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("locations.id")), nullable=False)
 
     # one book many factions
     book = db.relationship('Book', back_populates='factions')
@@ -27,8 +28,9 @@ class Faction(db.Model):
             'id': self.id,
             'book_id': self.book_id,
             'name': self.name,
-            'details': self.description,
-            'world': self.world.to_dict(),
+            'details': self.details,
+            'allegiance': self.allegiance,
+            'location_id': self.location_id,
             'book': self.book.to_dict(),
             'characters': [char.to_dict() for char in self.characters],
             # 'events': [event.to_dict() for event in self.events]

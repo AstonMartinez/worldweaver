@@ -39,6 +39,6 @@ class Character(db.Model):
             'description': self.description,
             'notes': self.notes,
             'world': self.world.to_dict(),
-            'events': [event.to_dict() for event in self.events],
-            'factions': [faction.to_dict() for faction in self.factions]
+            # 'events': [event.to_dict() for event in self.events],
+            # 'factions': [faction.to_dict() for faction in self.factions]
         }

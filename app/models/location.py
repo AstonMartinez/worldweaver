@@ -27,5 +27,5 @@ class Location(db.Model):
             'name': self.name,
             'description': self.description,
             'world': self.world.to_dict(),
-            'events': [event.to_dict() for event in self.events]
+            # 'events': [event.to_dict() for event in self.events]
         }
