@@ -20,7 +20,7 @@ class Faction(db.Model):
     characters = db.relationship('Character', back_populates='factions')
 
     # one faction many events
-    events = db.relationship('Event', back_populates='factions')
+    # events = db.relationship('Event', back_populates='factions')
 
     def to_dict(self):
         return {
@@ -31,5 +31,5 @@ class Faction(db.Model):
             'world': self.world.to_dict(),
             'book': self.book.to_dict(),
             'characters': [char.to_dict() for char in self.characters],
-            'events': [event.to_dict() for event in self.events]
+            # 'events': [event.to_dict() for event in self.events]
         }

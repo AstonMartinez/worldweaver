@@ -22,6 +22,8 @@ class Book(db.Model):
     # one book many chapters
     chapters = db.relationship('Chapter', back_populates='book')
 
+    factions = db.relationship('Faction', back_populates='book')
+
     def to_dict(self):
         return {
             'id': self.id,

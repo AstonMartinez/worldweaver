@@ -9,6 +9,8 @@ class Character(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     book_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("books.id")), nullable=False)
+    world_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("worlds.id")), nullable=False)
+    faction_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('factions.id')), nullable=True)
     name = db.Column(db.String(255), nullable=False)
     traits = db.Column(db.String(1000))
     personality = db.Column(db.String(1000))
@@ -16,11 +18,10 @@ class Character(db.Model):
     description = db.Column(db.String(5000))
     notes = db.Column(db.String(5000))
 
+    book = db.relationship('Book', back_populates='characters')
+
     # one world many characters
     world = db.relationship('World', back_populates='characters')
-
-    # one character many events
-    events = db.relationship('Event', back_populates='characters')
 
     # one character many factions
     factions = db.relationship('Faction', back_populates='characters')
@@ -29,6 +30,8 @@ class Character(db.Model):
         return {
             'id': self.id,
             'book_id': self.book_id,
+            'world_id': self.world_id,
+            'faction_id': self.faction_id,
             'name': self.name,
             'traits': self.traits,
             'personality': self.personality,
