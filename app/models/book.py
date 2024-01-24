@@ -34,6 +34,6 @@ class Book(db.Model):
             'genres': self.genres,
             'plot_details': self.plot_details,
             'style_and_voice': self.style_and_voice,
-            'characters': [char.to_dict() for char in self.characters],
-            'chapters': [chap.to_dict() for chap in self.chapters]
+            # 'characters': [char.to_dict() for char in self.characters],
+            # 'chapters': [chap.to_dict() for chap in self.chapters]
         }
