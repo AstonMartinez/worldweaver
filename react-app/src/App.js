@@ -8,6 +8,8 @@ import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import Dashboard from "./components/Dashboard";
 import BookDetails from "./components/BookDetails";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +23,7 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
+      <ToastContainer />
       {isLoaded && (
         <Switch>
           <Route path="/login">

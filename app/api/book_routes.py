@@ -7,7 +7,9 @@ from app.models.event import Event
 from app.models.location import Location
 from app.models.faction import Faction
 from app.models.world import World
+from app.forms.update_book_form import UpdateBookForm
 from flask_login import current_user, login_required
+from .auth_routes import validation_errors_to_error_messages
 
 book_routes = Blueprint('books', __name__)
 
@@ -74,3 +76,34 @@ def get_one_book(bookId):
                 result['bookWorld'] = world.to_dict()
         return result
     return {}
+
+@book_routes.route('/<int:bookId>', methods=["PUT"])
+def update_book_details(bookId):
+    """
+    Updates a single book and returns the updated book.
+    """
+    book = Book.query.get(bookId)
+    form = UpdateBookForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        title = request.json['title']
+        blurb = request.json['blurb']
+        themes = request.json['themes']
+        genres = request.json['genres']
+        plot_details = request.json['plot_details']
+        style_and_voice = request.json['style_and_voice']
+
+        if book:
+            book.title = title
+            book.blurb = blurb
+            book.themes = themes
+            book.genres = genres
+            book.plot_details = plot_details
+            book.style_and_voice = style_and_voice
+
+            db.session.commit()
+            return book.to_dict()
+        else:
+            return { 'errors': 'Book not found'}, 404
+    return { 'errors': validation_errors_to_error_messages(form.errors) }, 401

@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneBook } from "../../store/books";
+import BookData from "./Elements/BookData";
 
 const BookDetails = () => {
   const dispatch = useDispatch();
@@ -20,13 +21,23 @@ const BookDetails = () => {
   }, [dispatch]);
   return (
     <>
-      <div>{/* THIS IS WHERE BOOK TITLE WILL GO */}</div>
-      <div>{/* THIS IS WHERE ALL RELEVANT BOOK DETAILS WILL GO */}</div>
       <div>
-        {/* THIS IS WHERE EACH INDIVIDUAL ELEMENT WILL BE LISTED */}
+        <h1>
+          {bookData?.bookDetails?.title
+            ? bookData?.bookDetails?.title
+            : "Untitled"}
+        </h1>
+      </div>
+      <div>
+        <BookData data={bookData.bookDetails} />
+      </div>
+      <div>
         <WorldList worldData={bookData.bookWorld} />
         <LocationsList locationData={bookData.bookLocations} />
-        <CharactersList characterData={bookData.bookCharacters} />
+        <CharactersList
+          characterData={bookData.bookCharacters}
+          factionsData={bookData.bookFactions}
+        />
         <EventsList eventData={bookData.bookEvents} />
         <FactionsList factionData={bookData.bookFactions} />
         <ChaptersList chapterData={bookData.bookChapters} />

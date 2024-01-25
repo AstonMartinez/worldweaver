@@ -1,4 +1,8 @@
-const CharactersList = ({ characterData }) => {
+import { GoPencil } from "react-icons/go";
+import CharacterDetailsUpdate from "../../BookModals/Update/CharacterDetailsUpdate";
+import OpenModalButton from "../../OpenModalButton";
+
+const CharactersList = ({ characterData, factionsData }) => {
   return (
     <>
       <div>
@@ -9,7 +13,20 @@ const CharactersList = ({ characterData }) => {
           {characterData &&
             characterData.map((char, idx) => (
               <div key={idx} style={{ border: "1px solid black" }}>
-                <h4>{char?.name}</h4>
+                <div>
+                  <OpenModalButton
+                    buttonText={<GoPencil height={18} width={18} />}
+                    modalComponent={
+                      <CharacterDetailsUpdate
+                        charData={char}
+                        factionsData={factionsData}
+                      />
+                    }
+                  />
+                </div>
+                <div>
+                  <h4>{char?.name}</h4>
+                </div>
               </div>
             ))}
         </div>

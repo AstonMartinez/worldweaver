@@ -2,10 +2,14 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import session from "./session";
 import booksReducer from "./books";
+import worldReducer from "./worlds";
+import characterReducer from "./characters";
 
 const rootReducer = combineReducers({
   session,
   books: booksReducer,
+  worlds: worldReducer,
+  characters: characterReducer,
 });
 
 let enhancer;
