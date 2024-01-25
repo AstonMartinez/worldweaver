@@ -1,3 +1,6 @@
+import { GoPencil } from "react-icons/go";
+import OpenModalButton from "../../OpenModalButton";
+
 const CharactersList = ({ characterData }) => {
   return (
     <>
@@ -9,7 +12,14 @@ const CharactersList = ({ characterData }) => {
           {characterData &&
             characterData.map((char, idx) => (
               <div key={idx} style={{ border: "1px solid black" }}>
-                <h4>{char?.name}</h4>
+                <div>
+                  <OpenModalButton
+                    buttonText={<GoPencil height={18} width={18} />}
+                  />
+                </div>
+                <div>
+                  <h4>{char?.name}</h4>
+                </div>
               </div>
             ))}
         </div>
