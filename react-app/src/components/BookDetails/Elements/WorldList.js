@@ -1,4 +1,5 @@
 import { GoPencil } from "react-icons/go";
+import WorldDetailsUpdate from "../../BookModals/Update/WorldDetailsUpdate";
 import OpenModalButton from "../../OpenModalButton";
 
 const WorldList = ({ worldData }) => {
@@ -11,7 +12,10 @@ const WorldList = ({ worldData }) => {
         <div>
           <div></div>
           <div>
-            <OpenModalButton buttonText={<GoPencil height={18} width={18} />} />
+            <OpenModalButton
+              buttonText={<GoPencil height={18} width={18} />}
+              modalComponent={<WorldDetailsUpdate worldData={worldData} />}
+            />
           </div>
           <h4>{worldData?.name}</h4>
         </div>

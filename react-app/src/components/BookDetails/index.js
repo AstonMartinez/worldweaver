@@ -23,7 +23,9 @@ const BookDetails = () => {
     <>
       <div>
         <h1>
-          {bookData.bookDetails.title ? bookData.bookDetails.title : "Untitled"}
+          {bookData?.bookDetails?.title
+            ? bookData?.bookDetails?.title
+            : "Untitled"}
         </h1>
       </div>
       <div>

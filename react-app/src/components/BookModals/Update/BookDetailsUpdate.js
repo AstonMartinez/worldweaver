@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
+import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
+import { toast } from "react-toastify";
+import { updateOneBook } from "../../../store/books";
 
 const BookDetailsUpdate = ({ bookData }) => {
+  const dispatch = useDispatch();
   const { closeModal } = useModal();
   const [fields, setFields] = useState({
     title: bookData.title ? bookData.title : "",
@@ -13,9 +17,40 @@ const BookDetailsUpdate = ({ bookData }) => {
     blurb: bookData.blurb ? bookData.blurb : "",
   });
 
-  const handleSubmit = (e) => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const handleInputChange = (e) => {};
+    try {
+      toast.loading("Submitting changes...", {
+        position: "top-center",
+        theme: "dark",
+        toastId: "loadingToast",
+      });
+
+      const updatedDetails = {
+        title: fields.title,
+        plot_details: fields.plot_details,
+        style_and_voice: fields.styleAndVoice,
+        themes: fields.themes,
+        genres: fields.genres,
+        blurb: fields.blurb,
+      };
+
+      await dispatch(updateOneBook(bookData.id, updatedDetails));
+    } catch (error) {
+      toast.error(error.message, {
+        position: "top-center",
+        theme: "dark",
+      });
+    } finally {
+      toast.dismiss("loadingToast");
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setFields((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    return;
+  };
 
   return (
     <div>

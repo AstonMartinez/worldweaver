@@ -19,8 +19,8 @@ const BookData = ({ data }) => {
         <p>
           <span style={boldTextStyle}>Plot Details:</span>{" "}
           <span>
-            {data.plot_details ? (
-              data.plot_details
+            {data?.plot_details ? (
+              data?.plot_details
             ) : (
               <em>You haven't added this data yet</em>
             )}
@@ -30,8 +30,8 @@ const BookData = ({ data }) => {
         <p>
           <span style={boldTextStyle}>Style and Voice:</span>{" "}
           <span>
-            {data.style_and_voice ? (
-              data.style_and_voice
+            {data?.style_and_voice ? (
+              data?.style_and_voice
             ) : (
               <em>You haven't added this data yet</em>
             )}
@@ -41,8 +41,8 @@ const BookData = ({ data }) => {
         <p>
           <span style={boldTextStyle}>Themes:</span>{" "}
           <span>
-            {data.themes ? (
-              data.themes
+            {data?.themes ? (
+              data?.themes
             ) : (
               <em>You haven't added this data yet</em>
             )}
@@ -52,8 +52,8 @@ const BookData = ({ data }) => {
         <p>
           <span style={boldTextStyle}>Genres:</span>{" "}
           <span>
-            {data.genres ? (
-              data.genres
+            {data?.genres ? (
+              data?.genres
             ) : (
               <em>You haven't added this data yet</em>
             )}
@@ -63,7 +63,11 @@ const BookData = ({ data }) => {
         <p>
           <span style={boldTextStyle}>Blurb:</span>{" "}
           <span>
-            {data.blurb ? data.blurb : <em>You haven't added this data yet</em>}
+            {data?.blurb ? (
+              data?.blurb
+            ) : (
+              <em>You haven't added this data yet</em>
+            )}
           </span>
         </p>
       </div>

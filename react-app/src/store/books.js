@@ -1,5 +1,6 @@
 const GET_USER_BOOKS = "books/getUser";
 const GET_SINGLE_BOOK = "books/getOne";
+const UPDATE_BOOK = "books/updateOne";
 
 const getUser = (data) => ({
   type: GET_USER_BOOKS,
@@ -8,6 +9,11 @@ const getUser = (data) => ({
 
 const getOne = (data) => ({
   type: GET_SINGLE_BOOK,
+  payload: data,
+});
+
+const updateOne = (data) => ({
+  type: UPDATE_BOOK,
   payload: data,
 });
 
@@ -45,6 +51,29 @@ export const fetchOneBook = (id) => async (dispatch) => {
   }
 };
 
+export const updateOneBook = (id, bookInfo) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/books/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bookInfo),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(updateOne(data));
+      return data;
+    } else {
+      const error = await response.json();
+      return error;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const initialState = { allBooks: {}, singleBook: {} };
 
 export default function booksReducer(state = initialState, action) {
@@ -55,6 +84,7 @@ export default function booksReducer(state = initialState, action) {
       newState.allBooks = action.payload;
       return newState;
     case GET_SINGLE_BOOK:
+    case UPDATE_BOOK:
       newState = Object.assign({ ...state });
       newState.singleBook = action.payload;
       return newState;
