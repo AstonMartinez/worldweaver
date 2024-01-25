@@ -34,7 +34,10 @@ const BookDetails = () => {
       <div>
         <WorldList worldData={bookData.bookWorld} />
         <LocationsList locationData={bookData.bookLocations} />
-        <CharactersList characterData={bookData.bookCharacters} />
+        <CharactersList
+          characterData={bookData.bookCharacters}
+          factionsData={bookData.bookFactions}
+        />
         <EventsList eventData={bookData.bookEvents} />
         <FactionsList factionData={bookData.bookFactions} />
         <ChaptersList chapterData={bookData.bookChapters} />

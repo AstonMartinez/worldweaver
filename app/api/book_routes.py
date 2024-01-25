@@ -104,5 +104,6 @@ def update_book_details(bookId):
 
             db.session.commit()
             return book.to_dict()
-        return { 'errors': 'Book not found'}, 404
+        else:
+            return { 'errors': 'Book not found'}, 404
     return { 'errors': validation_errors_to_error_messages(form.errors) }, 401

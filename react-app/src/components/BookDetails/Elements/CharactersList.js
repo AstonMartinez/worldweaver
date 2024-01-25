@@ -1,7 +1,8 @@
 import { GoPencil } from "react-icons/go";
+import CharacterDetailsUpdate from "../../BookModals/Update/CharacterDetailsUpdate";
 import OpenModalButton from "../../OpenModalButton";
 
-const CharactersList = ({ characterData }) => {
+const CharactersList = ({ characterData, factionsData }) => {
   return (
     <>
       <div>
@@ -15,6 +16,12 @@ const CharactersList = ({ characterData }) => {
                 <div>
                   <OpenModalButton
                     buttonText={<GoPencil height={18} width={18} />}
+                    modalComponent={
+                      <CharacterDetailsUpdate
+                        charData={char}
+                        factionsData={factionsData}
+                      />
+                    }
                   />
                 </div>
                 <div>

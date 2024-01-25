@@ -34,5 +34,6 @@ def update_world(worldId):
 
             db.session.commit()
             return world.to_dict()
-        return { 'errors': 'World not found' }
+        else:
+            return { 'errors': 'World not found' }
     return { 'errors': validation_errors_to_error_messages(form.errors) }, 401

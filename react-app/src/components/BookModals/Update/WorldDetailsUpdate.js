@@ -30,7 +30,7 @@ const WorldDetailsUpdate = ({ worldData }) => {
         notes: fields.notes,
       };
 
-      await dispatch(updateWorld(updatedDetails));
+      await dispatch(updateWorld(worldData.id, updatedDetails));
     } catch (error) {
       toast.error(error.message, {
         position: "top-center",
