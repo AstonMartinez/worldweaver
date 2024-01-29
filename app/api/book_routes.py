@@ -107,3 +107,16 @@ def update_book_details(bookId):
         else:
             return { 'errors': 'Book not found'}, 404
     return { 'errors': validation_errors_to_error_messages(form.errors) }, 401
+
+
+@book_routes.route('/<int:bookId>', methods=["DELETE"])
+def delete_book(bookId):
+    book = Book.query.get(bookId)
+
+    if book:
+        book_dict = book.to_dict()
+        db.session.delete(book)
+        db.session.commit()
+        return book_dict
+    else:
+        return { 'error': 'Book not found' }, 404

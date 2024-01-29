@@ -2,6 +2,7 @@ import { GoPencil } from "react-icons/go";
 import { IoTrashOutline } from "react-icons/io5";
 import OpenModalButton from "../../OpenModalButton";
 import BookDetailsUpdate from "../../BookModals/Update/BookDetailsUpdate";
+import BookDelete from "../../BookModals/Delete/BookDelete";
 
 const boldTextStyle = {
   fontWeight: "bold",
@@ -17,6 +18,7 @@ const BookData = ({ data }) => {
         />
         <OpenModalButton
           buttonText={<IoTrashOutline height={18} width={18} />}
+          modalComponent={<BookDelete bookData={data} />}
         />
       </div>
       <div>
