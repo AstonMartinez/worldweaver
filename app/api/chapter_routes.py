@@ -38,3 +38,15 @@ def update_chapter(chapterId):
         else:
             return { 'error': 'Chapter not found' }, 404
     return { 'errors': validation_errors_to_error_messages(form.errors) }, 401
+
+@chapter_routes.route('/<int:chapterId>', methods=["DELETE"])
+def delete_chapter(chapterId):
+    chapter = Chapter.query.get(chapterId)
+
+    if chapter:
+        chapter_dict = chapter.to_dict()
+        db.session.delete(chapter)
+        db.session.commit()
+        return chapter_dict
+    else:
+        return { 'error': 'Chapter not found' }, 404

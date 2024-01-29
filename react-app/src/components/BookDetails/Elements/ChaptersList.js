@@ -2,6 +2,7 @@ import { GoPencil } from "react-icons/go";
 import { IoTrashOutline } from "react-icons/io5";
 import OpenModalButton from "../../OpenModalButton";
 import { useHistory } from "react-router-dom";
+import ChapterDelete from "../../BookModals/Delete/ChapterDelete";
 
 const ChaptersList = ({ chapterData }) => {
   const history = useHistory();
@@ -21,6 +22,7 @@ const ChaptersList = ({ chapterData }) => {
                   </button>
                   <OpenModalButton
                     buttonText={<IoTrashOutline height={18} width={18} />}
+                    modalComponent={<ChapterDelete chapData={chap} />}
                   />
                 </div>
                 <div>

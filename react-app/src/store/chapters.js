@@ -1,5 +1,6 @@
 const GET_CHAPTER = "chapters/getOne";
 const UPDATE_CHAPTER = "chapters/updateOne";
+const DELETE_CHAPTER = "chapters/deleteOne";
 
 const getOne = (data) => ({
   type: GET_CHAPTER,
@@ -8,6 +9,11 @@ const getOne = (data) => ({
 
 const updateOne = (data) => ({
   type: UPDATE_CHAPTER,
+  payload: data,
+});
+
+const deleteOne = (data) => ({
+  type: DELETE_CHAPTER,
   payload: data,
 });
 
@@ -41,6 +47,28 @@ export const updateChapter = (id, chapterData) => async (dispatch) => {
     if (response.ok) {
       const data = await response.json();
       dispatch(updateOne(data));
+      return data;
+    } else {
+      const error = await response.json();
+      return error;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteChapter = (id) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/chapters/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(deleteOne(data));
       return data;
     } else {
       const error = await response.json();
