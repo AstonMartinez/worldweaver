@@ -29,18 +29,19 @@ const BookDetails = () => {
         </h1>
       </div>
       <div>
-        <BookData data={bookData.bookDetails} />
+        <BookData data={bookData.bookDetails} bookId={bookId} />
       </div>
       <div>
-        <WorldList worldData={bookData.bookWorld} />
-        <LocationsList locationData={bookData.bookLocations} />
+        <WorldList worldData={bookData.bookWorld} bookId={bookId} />
+        <LocationsList locationData={bookData.bookLocations} bookId={bookId} />
         <CharactersList
           characterData={bookData.bookCharacters}
           factionsData={bookData.bookFactions}
+          bookId={bookId}
         />
-        <EventsList eventData={bookData.bookEvents} />
-        <FactionsList factionData={bookData.bookFactions} />
-        <ChaptersList chapterData={bookData.bookChapters} />
+        <EventsList eventData={bookData.bookEvents} bookId={bookId} />
+        <FactionsList factionData={bookData.bookFactions} bookId={bookId} />
+        <ChaptersList chapterData={bookData.bookChapters} bookId={bookId} />
       </div>
     </>
   );

@@ -4,8 +4,9 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { updateEventDetails } from "../../../store/events";
+import { fetchOneBook } from "../../../store/books";
 
-const EventDetailsUpdate = ({ eventData }) => {
+const EventDetailsUpdate = ({ eventData, bookId }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const [fields, setFields] = useState({
@@ -45,6 +46,14 @@ const EventDetailsUpdate = ({ eventData }) => {
       });
     } finally {
       toast.dismiss("loadingToast");
+      toast.success("Successfully updated!", {
+        position: "top-center",
+        autoClose: 3000,
+        theme: "dark",
+      });
+
+      dispatch(fetchOneBook(bookId));
+      closeModal();
     }
   };
 

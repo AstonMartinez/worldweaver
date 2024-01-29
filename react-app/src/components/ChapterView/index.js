@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { fetchChapter, updateChapter } from "../../store/chapters";
 import { toast } from "react-toastify";
+import { fetchOneBook } from "../../store/books";
 
 const ChapterView = () => {
   const { chapterId } = useParams();
@@ -13,6 +14,8 @@ const ChapterView = () => {
   const chapterData = useSelector((state) => state.chapters.singleChapter);
   console.log(chapterData.title);
 
+  const [hasLoaded, setHasLoaded] = useState(false);
+
   const [fields, setFields] = useState({
     title: chapterData.title ? chapterData.title : "",
     highlights: chapterData.highlights ? chapterData.highlights : "",
@@ -20,13 +23,17 @@ const ChapterView = () => {
   });
 
   useEffect(() => {
-    dispatch(fetchChapter(chapterId)).then(() => {
-      setFields({
-        title: chapterData.title ? chapterData.title : "",
-        highlights: chapterData.highlights ? chapterData.highlights : "",
-        draft: chapterData.draft ? chapterData.draft : "",
+    dispatch(fetchChapter(chapterId))
+      .then(() => {
+        setHasLoaded(true);
+      })
+      .then(() => {
+        setFields({
+          title: chapterData.title ? chapterData.title : "",
+          highlights: chapterData.highlights ? chapterData.highlights : "",
+          draft: chapterData.draft ? chapterData.draft : "",
+        });
       });
-    });
   }, [dispatch]);
 
   const handleInputChange = (e) => {
@@ -58,13 +65,21 @@ const ChapterView = () => {
       });
     } finally {
       toast.dismiss("loadingToast");
+      toast.success("Successfully updated!", {
+        position: "top-center",
+        autoClose: 3000,
+        theme: "dark",
+      });
+
+      dispatch(fetchOneBook(chapterData.book_id));
+      history.push(`/books/${chapterData.book_id}`);
     }
   };
 
   return (
     <div>
       <section>
-        <button onClick={() => history.push(`/books/${chapterId}`)}>
+        <button onClick={() => history.push(`/books/${chapterData.book_id}`)}>
           <IoIosArrowBack height={18} weight={18} /> Return to Book Details
         </button>
       </section>
@@ -77,7 +92,7 @@ const ChapterView = () => {
             <input
               type="text"
               id="update-chapter-title"
-              name="name"
+              name="title"
               value={fields.title}
               onChange={(e) => handleInputChange(e)}
             />

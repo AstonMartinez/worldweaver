@@ -3,9 +3,9 @@ import { IoClose } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
-import { updateOneBook } from "../../../store/books";
+import { fetchOneBook, updateOneBook } from "../../../store/books";
 
-const BookDetailsUpdate = ({ bookData }) => {
+const BookDetailsUpdate = ({ bookData, bookId }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const [fields, setFields] = useState({
@@ -29,7 +29,7 @@ const BookDetailsUpdate = ({ bookData }) => {
 
       const updatedDetails = {
         title: fields.title,
-        plot_details: fields.plot_details,
+        plot_details: fields.plot,
         style_and_voice: fields.styleAndVoice,
         themes: fields.themes,
         genres: fields.genres,
@@ -44,6 +44,13 @@ const BookDetailsUpdate = ({ bookData }) => {
       });
     } finally {
       toast.dismiss("loadingToast");
+      toast.success("Successfully updated!", {
+        position: "top-center",
+        autoClose: 3000,
+        theme: "dark",
+      });
+      dispatch(fetchOneBook(bookId));
+      closeModal();
     }
   };
 

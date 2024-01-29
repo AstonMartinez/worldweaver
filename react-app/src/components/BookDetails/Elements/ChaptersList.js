@@ -4,7 +4,7 @@ import OpenModalButton from "../../OpenModalButton";
 import { useHistory } from "react-router-dom";
 import ChapterDelete from "../../BookModals/Delete/ChapterDelete";
 
-const ChaptersList = ({ chapterData }) => {
+const ChaptersList = ({ chapterData, bookId }) => {
   const history = useHistory();
   return (
     <>
@@ -22,7 +22,9 @@ const ChaptersList = ({ chapterData }) => {
                   </button>
                   <OpenModalButton
                     buttonText={<IoTrashOutline height={18} width={18} />}
-                    modalComponent={<ChapterDelete chapData={chap} />}
+                    modalComponent={
+                      <ChapterDelete chapData={chap} bookId={bookId} />
+                    }
                   />
                 </div>
                 <div>

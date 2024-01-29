@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { deleteChapter } from "../../../store/chapters";
+import { fetchOneBook } from "../../../store/books";
 
-const ChapterDelete = ({ chapData }) => {
+const ChapterDelete = ({ chapData, bookId }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
@@ -29,6 +30,7 @@ const ChapterDelete = ({ chapData }) => {
         autoClose: 3000,
         theme: "dark",
       });
+      dispatch(fetchOneBook(bookId));
       closeModal();
     }
   };

@@ -4,7 +4,7 @@ import WorldDelete from "../../BookModals/Delete/WorldDelete";
 import WorldDetailsUpdate from "../../BookModals/Update/WorldDetailsUpdate";
 import OpenModalButton from "../../OpenModalButton";
 
-const WorldList = ({ worldData }) => {
+const WorldList = ({ worldData, bookId }) => {
   return (
     <>
       <div>
@@ -16,11 +16,15 @@ const WorldList = ({ worldData }) => {
           <div>
             <OpenModalButton
               buttonText={<GoPencil height={18} width={18} />}
-              modalComponent={<WorldDetailsUpdate worldData={worldData} />}
+              modalComponent={
+                <WorldDetailsUpdate worldData={worldData} bookId={bookId} />
+              }
             />
             <OpenModalButton
               buttonText={<IoTrashOutline height={18} width={18} />}
-              modalComponent={<WorldDelete worldData={worldData} />}
+              modalComponent={
+                <WorldDelete worldData={worldData} bookId={bookId} />
+              }
             />
           </div>
           <h4>{worldData?.name}</h4>

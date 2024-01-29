@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { deleteFaction } from "../../../store/factions";
+import { fetchOneBook } from "../../../store/books";
 
-const FactionDelete = ({ factionData }) => {
+const FactionDelete = ({ factionData, bookId }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
@@ -29,6 +30,7 @@ const FactionDelete = ({ factionData }) => {
         autoClose: 3000,
         theme: "dark",
       });
+      dispatch(fetchOneBook(bookId));
       closeModal();
     }
   };

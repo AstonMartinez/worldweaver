@@ -5,8 +5,9 @@ import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { updateWorld } from "../../../store/worlds";
 import { updateLocation } from "../../../store/locations";
+import { fetchOneBook } from "../../../store/books";
 
-const LocationDetailsUpdate = ({ locationData }) => {
+const LocationDetailsUpdate = ({ locationData, bookId }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const [fields, setFields] = useState({
@@ -37,6 +38,14 @@ const LocationDetailsUpdate = ({ locationData }) => {
       });
     } finally {
       toast.dismiss("loadingToast");
+      toast.success("Successfully updated!", {
+        position: "top-center",
+        autoClose: 3000,
+        theme: "dark",
+      });
+
+      dispatch(fetchOneBook(bookId));
+      closeModal();
     }
   };
 

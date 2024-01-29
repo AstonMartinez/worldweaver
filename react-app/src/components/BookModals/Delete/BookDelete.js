@@ -3,9 +3,11 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { deleteBook } from "../../../store/books";
+import { useHistory } from "react-router-dom";
 
 const BookDelete = ({ bookData }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { closeModal } = useModal();
 
   const handleDelete = async () => {
@@ -29,6 +31,7 @@ const BookDelete = ({ bookData }) => {
         autoClose: 3000,
         theme: "dark",
       });
+      history.push("/");
       closeModal();
     }
   };

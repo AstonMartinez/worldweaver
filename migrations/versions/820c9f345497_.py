@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: f423cd32fd55
+Revision ID: 820c9f345497
 Revises: 
-Create Date: 2024-01-24 17:27:28.770401
+Create Date: 2024-01-29 17:10:04.907416
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f423cd32fd55'
+revision = '820c9f345497'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -40,7 +40,7 @@ def upgrade():
     sa.Column('genres', sa.String(length=500), nullable=True),
     sa.Column('plot_details', sa.String(length=5000), nullable=True),
     sa.Column('style_and_voice', sa.String(length=2000), nullable=True),
-    sa.ForeignKeyConstraint(['author_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['author_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('chapters',
@@ -49,40 +49,42 @@ def upgrade():
     sa.Column('title', sa.String(length=255), nullable=True),
     sa.Column('highlights', sa.String(length=5000), nullable=True),
     sa.Column('draft', sa.String(length=50000), nullable=True),
-    sa.ForeignKeyConstraint(['book_id'], ['books.id'], ),
+    sa.ForeignKeyConstraint(['book_id'], ['books.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('worlds',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('author_id', sa.Integer(), nullable=False),
     sa.Column('book_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=255), nullable=True),
     sa.Column('description', sa.String(length=5000), nullable=True),
     sa.Column('notes', sa.String(length=5000), nullable=True),
-    sa.ForeignKeyConstraint(['book_id'], ['books.id'], ),
+    sa.ForeignKeyConstraint(['author_id'], ['users.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['book_id'], ['books.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('locations',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('world_id', sa.Integer(), nullable=False),
+    sa.Column('world_id', sa.Integer(), nullable=True),
     sa.Column('book_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('description', sa.String(length=5000), nullable=True),
-    sa.ForeignKeyConstraint(['book_id'], ['books.id'], ),
-    sa.ForeignKeyConstraint(['world_id'], ['worlds.id'], ),
+    sa.ForeignKeyConstraint(['book_id'], ['books.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['world_id'], ['worlds.id'], ondelete='SET NULL'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('events',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('book_id', sa.Integer(), nullable=False),
-    sa.Column('location_id', sa.Integer(), nullable=False),
-    sa.Column('world_id', sa.Integer(), nullable=False),
+    sa.Column('location_id', sa.Integer(), nullable=True),
+    sa.Column('world_id', sa.Integer(), nullable=True),
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('timeframe', sa.String(length=500), nullable=True),
     sa.Column('details', sa.String(length=2000), nullable=True),
     sa.Column('impact', sa.String(length=2000), nullable=True),
-    sa.ForeignKeyConstraint(['book_id'], ['books.id'], ),
-    sa.ForeignKeyConstraint(['location_id'], ['locations.id'], ),
-    sa.ForeignKeyConstraint(['world_id'], ['worlds.id'], ),
+    sa.ForeignKeyConstraint(['book_id'], ['books.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['location_id'], ['locations.id'], ondelete='SET NULL'),
+    sa.ForeignKeyConstraint(['world_id'], ['worlds.id'], ondelete='SET NULL'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('factions',
@@ -91,15 +93,15 @@ def upgrade():
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('details', sa.String(length=5000), nullable=True),
     sa.Column('allegiance', sa.String(length=255), nullable=True),
-    sa.Column('location_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['book_id'], ['books.id'], ),
-    sa.ForeignKeyConstraint(['location_id'], ['locations.id'], ),
+    sa.Column('location_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['book_id'], ['books.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['location_id'], ['locations.id'], ondelete='SET NULL'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('characters',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('book_id', sa.Integer(), nullable=False),
-    sa.Column('world_id', sa.Integer(), nullable=False),
+    sa.Column('world_id', sa.Integer(), nullable=True),
     sa.Column('faction_id', sa.Integer(), nullable=True),
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('traits', sa.String(length=1000), nullable=True),
@@ -107,9 +109,9 @@ def upgrade():
     sa.Column('quips', sa.String(length=1000), nullable=True),
     sa.Column('description', sa.String(length=5000), nullable=True),
     sa.Column('notes', sa.String(length=5000), nullable=True),
-    sa.ForeignKeyConstraint(['book_id'], ['books.id'], ),
-    sa.ForeignKeyConstraint(['faction_id'], ['factions.id'], ),
-    sa.ForeignKeyConstraint(['world_id'], ['worlds.id'], ),
+    sa.ForeignKeyConstraint(['book_id'], ['books.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['faction_id'], ['factions.id'], ondelete='SET NULL'),
+    sa.ForeignKeyConstraint(['world_id'], ['worlds.id'], ondelete='SET NULL'),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###

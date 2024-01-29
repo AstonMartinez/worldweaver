@@ -17,7 +17,7 @@ def get_world(worldId):
 
 @world_routes.route('/<int:worldId>', methods=["PUT"])
 def update_world(worldId):
-    world = World.query.get()
+    world = World.query.get(worldId)
 
     form = UpdateWorldForm()
     form['csrf_token'].data = request.cookies['csrf_token']

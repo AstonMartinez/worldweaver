@@ -8,17 +8,17 @@ const boldTextStyle = {
   fontWeight: "bold",
 };
 
-const BookData = ({ data }) => {
+const BookData = ({ data, bookId }) => {
   return (
     <div>
       <div>
         <OpenModalButton
           buttonText={<GoPencil height={18} width={18} />}
-          modalComponent={<BookDetailsUpdate bookData={data} />}
+          modalComponent={<BookDetailsUpdate bookData={data} bookId={bookId} />}
         />
         <OpenModalButton
           buttonText={<IoTrashOutline height={18} width={18} />}
-          modalComponent={<BookDelete bookData={data} />}
+          modalComponent={<BookDelete bookData={data} bookId={bookId} />}
         />
       </div>
       <div>

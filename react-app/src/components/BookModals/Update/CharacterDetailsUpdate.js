@@ -4,8 +4,9 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { updateCharacter } from "../../../store/characters";
+import { fetchOneBook } from "../../../store/books";
 
-const CharacterDetailsUpdate = ({ charData, factionsData }) => {
+const CharacterDetailsUpdate = ({ charData, factionsData, bookId }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const [fields, setFields] = useState({
@@ -46,6 +47,14 @@ const CharacterDetailsUpdate = ({ charData, factionsData }) => {
       });
     } finally {
       toast.dismiss("loadingToast");
+      toast.success("Successfully updated!", {
+        position: "top-center",
+        autoClose: 3000,
+        theme: "dark",
+      });
+
+      dispatch(fetchOneBook(bookId));
+      closeModal();
     }
   };
 

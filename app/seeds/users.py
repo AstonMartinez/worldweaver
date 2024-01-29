@@ -36,6 +36,7 @@ def seed_users():
 
     world1 = World(
         book_id=1,
+        author_id=1,
         name='Eldoria',
         description='A realm of enchantment where magic permeates the very air. Eldoria is characterized by mystical landscapes, ancient forests, and towering mountains. At its heart lies the Ephemeral Nexus, a focal point of magical energy connecting different realms and shaping the destiny of the world.',
         notes="Eldoria's magic is intertwined with the fate of its inhabitants, and the Ephemeral Nexus holds the key to unlocking the secrets of the universe."

@@ -8,9 +8,9 @@ class Character(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    book_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("books.id")), nullable=False)
-    world_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("worlds.id")), nullable=False)
-    faction_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('factions.id')), nullable=True)
+    book_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("books.id"), ondelete="CASCADE"), nullable=False)
+    world_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("worlds.id"), ondelete="SET NULL"), nullable=True)
+    faction_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('factions.id'), ondelete="SET NULL"), nullable=True)
     name = db.Column(db.String(255), nullable=False)
     traits = db.Column(db.String(1000))
     personality = db.Column(db.String(1000))
@@ -38,7 +38,7 @@ class Character(db.Model):
             'quips': self.quips,
             'description': self.description,
             'notes': self.notes,
-            'world': self.world.to_dict(),
+            # 'world': self.world ? self.world.to_dict()
             # 'events': [event.to_dict() for event in self.events],
             # 'factions': [faction.to_dict() for faction in self.factions]
         }

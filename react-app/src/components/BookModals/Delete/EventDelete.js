@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { deleteEvent } from "../../../store/events";
+import { fetchOneBook } from "../../../store/books";
 
-const EventDelete = ({ eventData }) => {
+const EventDelete = ({ eventData, bookId }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
@@ -29,6 +30,7 @@ const EventDelete = ({ eventData }) => {
         autoClose: 3000,
         theme: "dark",
       });
+      dispatch(fetchOneBook(bookId));
       closeModal();
     }
   };

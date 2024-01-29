@@ -4,7 +4,7 @@ import EventDelete from "../../BookModals/Delete/EventDelete";
 import EventDetailsUpdate from "../../BookModals/Update/EventDetailsUpdate";
 import OpenModalButton from "../../OpenModalButton";
 
-const EventsList = ({ eventData }) => {
+const EventsList = ({ eventData, bookId }) => {
   return (
     <>
       <div>
@@ -18,11 +18,15 @@ const EventsList = ({ eventData }) => {
                 <div>
                   <OpenModalButton
                     buttonText={<GoPencil height={18} width={18} />}
-                    modalComponent={<EventDetailsUpdate eventData={event} />}
+                    modalComponent={
+                      <EventDetailsUpdate eventData={event} bookId={bookId} />
+                    }
                   />
                   <OpenModalButton
                     buttonText={<IoTrashOutline height={18} width={18} />}
-                    modalComponent={<EventDelete eventData={event} />}
+                    modalComponent={
+                      <EventDelete eventData={event} bookId={bookId} />
+                    }
                   />
                 </div>
                 <div>

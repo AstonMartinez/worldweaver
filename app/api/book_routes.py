@@ -47,33 +47,33 @@ def get_one_book(bookId):
             result['bookDetails'] = book.to_dict()
 
             characters = Character.query.filter(Character.book_id == bookId).all()
-            if characters:
+            if len(characters) > 0:
                 chars = [char.to_dict() for char in characters]
                 result['bookCharacters'] = chars
 
             chapters = Chapter.query.filter(Chapter.book_id == bookId).all()
-            if chapters:
+            if len(chapters) > 0:
                 chaps = [chap.to_dict() for chap in chapters]
                 result['bookChapters'] = chaps
 
             factions = Faction.query.filter(Chapter.book_id == bookId).all()
-            if factions:
+            if len(factions) > 0:
                 facs = [fac.to_dict() for fac in factions]
                 result['bookFactions'] = facs
 
             events = Event.query.filter(Event.book_id == bookId).all()
-            if events:
+            if len(events) > 0:
                 eves = [eve.to_dict() for eve in events]
                 result['bookEvents'] = eves
 
             locations = Location.query.filter(Location.book_id == bookId).all()
-            if locations:
+            if len(locations) > 0:
                 locs = [loc.to_dict() for loc in locations]
                 result['bookLocations'] = locs
 
-            world = World.query.filter(World.book_id == bookId).first()
-            if world:
-                result['bookWorld'] = world.to_dict()
+            world = World.query.filter(World.book_id == bookId).all()
+            if len(world) > 0:
+                result['bookWorld'] = world[0].to_dict()
         return result
     return {}
 

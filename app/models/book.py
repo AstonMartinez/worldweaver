@@ -8,7 +8,7 @@ class Book(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    author_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
+    author_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id"), ondelete="CASCADE"), nullable=False)
     title = db.Column(db.String(500))
     blurb = db.Column(db.String(2000))
     themes = db.Column(db.String(2000))

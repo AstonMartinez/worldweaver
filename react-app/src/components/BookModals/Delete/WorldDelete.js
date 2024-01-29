@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { deleteWorld } from "../../../store/worlds";
+import { fetchOneBook } from "../../../store/books";
 
-const WorldDelete = ({ worldData }) => {
+const WorldDelete = ({ worldData, bookId }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
@@ -29,6 +30,7 @@ const WorldDelete = ({ worldData }) => {
         autoClose: 3000,
         theme: "dark",
       });
+      dispatch(fetchOneBook(bookId));
       closeModal();
     }
   };

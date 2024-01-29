@@ -4,8 +4,9 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { updateWorld } from "../../../store/worlds";
+import { fetchOneBook } from "../../../store/books";
 
-const WorldDetailsUpdate = ({ worldData }) => {
+const WorldDetailsUpdate = ({ worldData, bookId }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const [fields, setFields] = useState({
@@ -38,6 +39,14 @@ const WorldDetailsUpdate = ({ worldData }) => {
       });
     } finally {
       toast.dismiss("loadingToast");
+      toast.success("Successfully updated!", {
+        position: "top-center",
+        autoClose: 3000,
+        theme: "dark",
+      });
+
+      dispatch(fetchOneBook(bookId));
+      closeModal();
     }
   };
 

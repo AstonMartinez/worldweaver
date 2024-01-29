@@ -13,6 +13,7 @@ from .api.event_routes import event_routes
 from .api.faction_routes import faction_routes
 from .api.chapter_routes import chapter_routes
 from .api.location_routes import location_routes
+from .api.character_routes import character_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -40,6 +41,7 @@ app.register_blueprint(event_routes, url_prefix='/api/events')
 app.register_blueprint(faction_routes, url_prefix='/api/factions')
 app.register_blueprint(chapter_routes, url_prefix='/api/chapters')
 app.register_blueprint(location_routes, url_prefix='/api/locations')
+app.register_blueprint(character_routes, url_prefix='/api/characters')
 db.init_app(app)
 Migrate(app, db)
 

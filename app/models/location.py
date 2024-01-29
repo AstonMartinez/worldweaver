@@ -8,8 +8,8 @@ class Location(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    world_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("worlds.id")), nullable=False)
-    book_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("books.id")), nullable=False)
+    world_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("worlds.id"), ondelete="SET NULL"), nullable=True)
+    book_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("books.id"), ondelete="CASCADE"), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(5000))
 
@@ -26,6 +26,6 @@ class Location(db.Model):
             'world_id': self.world_id,
             'name': self.name,
             'description': self.description,
-            'world': self.world.to_dict(),
+            # 'world': self.world.to_dict(),
             # 'events': [event.to_dict() for event in self.events]
         }
