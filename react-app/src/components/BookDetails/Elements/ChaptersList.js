@@ -1,8 +1,10 @@
 import { GoPencil } from "react-icons/go";
 import { IoTrashOutline } from "react-icons/io5";
 import OpenModalButton from "../../OpenModalButton";
+import { useHistory } from "react-router-dom";
 
 const ChaptersList = ({ chapterData }) => {
+  const history = useHistory();
   return (
     <>
       <div>
@@ -14,9 +16,9 @@ const ChaptersList = ({ chapterData }) => {
             chapterData.map((chap, idx) => (
               <div key={idx} style={{ border: "1px solid black" }}>
                 <div>
-                  <OpenModalButton
-                    buttonText={<GoPencil height={18} width={18} />}
-                  />
+                  <button onClick={() => history.push(`/chapters/${chap.id}`)}>
+                    <GoPencil height={18} width={18} />
+                  </button>
                   <OpenModalButton
                     buttonText={<IoTrashOutline height={18} width={18} />}
                   />
