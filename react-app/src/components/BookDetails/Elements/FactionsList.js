@@ -1,5 +1,6 @@
 import { GoPencil } from "react-icons/go";
 import { IoTrashOutline } from "react-icons/io5";
+import FactionDetailsUpdate from "../../BookModals/Update/FactionDetailsUpdate";
 import OpenModalButton from "../../OpenModalButton";
 
 const FactionsList = ({ factionData }) => {
@@ -16,6 +17,7 @@ const FactionsList = ({ factionData }) => {
                 <div>
                   <OpenModalButton
                     buttonText={<GoPencil height={18} width={18} />}
+                    modalComponent={<FactionDetailsUpdate factionData={fac} />}
                   />
                   <OpenModalButton
                     buttonText={<IoTrashOutline height={18} width={18} />}
