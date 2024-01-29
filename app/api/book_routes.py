@@ -8,6 +8,7 @@ from app.models.location import Location
 from app.models.faction import Faction
 from app.models.world import World
 from app.forms.update_book_form import UpdateBookForm
+from app.forms.create_book_form import CreateBookForm
 from flask_login import current_user, login_required
 from .auth_routes import validation_errors_to_error_messages
 
@@ -120,3 +121,32 @@ def delete_book(bookId):
         return book_dict
     else:
         return { 'error': 'Book not found' }, 404
+
+@book_routes.route('/new', methods=["POST"])
+def create_book():
+    form = CreateBookForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        author_id = current_user.id
+        title = request.json['title']
+        blurb = request.json['blurb']
+        themes = request.json['themes']
+        genres = request.json['genres']
+        plot_details = request.json['plot_details']
+        style_and_voice = request.json['style_and_voice']
+
+        new_book = Book(
+            author_id=author_id,
+            title=title,
+            blurb=blurb,
+            themes=themes,
+            genres=genres,
+            plot_details=plot_details,
+            style_and_voice=style_and_voice
+        )
+
+        db.session.add(new_book)
+        db.session.commit()
+        return new_book.to_dict()
+    return { 'errors': validation_errors_to_error_messages(form.errors) }, 401

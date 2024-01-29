@@ -6,10 +6,12 @@ import FactionsList from "./Elements/FactionsList";
 import LocationsList from "./Elements/LocationsList";
 import WorldList from "./Elements/WorldList";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneBook } from "../../store/books";
 import BookData from "./Elements/BookData";
+import { IoMdAdd } from "react-icons/io";
+import OpenModalButton from "../OpenModalButton";
 
 const BookDetails = () => {
   const dispatch = useDispatch();
@@ -19,6 +21,42 @@ const BookDetails = () => {
   useEffect(() => {
     dispatch(fetchOneBook(bookId));
   }, [dispatch]);
+
+  const [showMenu, setShowMenu] = useState(false);
+  const ulRef = useRef();
+
+  const openMenu = () => {
+    if (showMenu) return;
+    setShowMenu(true);
+  };
+
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const closeMenu = (e) => {
+      if (!ulRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
+
+  const ulClassName = "create-dropdown" + (showMenu ? "" : " hidden");
+  const closeMenu = () => setShowMenu(false);
+
+  const addMenu = (
+    <ul className={ulClassName} ref={ulRef}>
+      <OpenModalButton buttonText="World" onItemClick={closeMenu} />
+      <OpenModalButton buttonText="Location" onItemClick={closeMenu} />
+      <OpenModalButton buttonText="Character" onItemClick={closeMenu} />
+      <OpenModalButton buttonText="Event" onItemClick={closeMenu} />
+      <OpenModalButton buttonText="Faction" onItemClick={closeMenu} />
+      <OpenModalButton buttonText="Chapter" onItemClick={closeMenu} />
+    </ul>
+  );
   return (
     <>
       <div>
@@ -27,6 +65,12 @@ const BookDetails = () => {
             ? bookData?.bookDetails?.title
             : "Untitled"}
         </h1>
+      </div>
+      <div>
+        <button onClick={openMenu}>
+          {<IoMdAdd height={18} width={18} />} Add
+        </button>
+        {addMenu}
       </div>
       <div>
         <BookData data={bookData.bookDetails} bookId={bookId} />
