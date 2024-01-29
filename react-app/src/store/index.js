@@ -4,12 +4,14 @@ import session from "./session";
 import booksReducer from "./books";
 import worldReducer from "./worlds";
 import characterReducer from "./characters";
+import eventsReducer from "./events";
 
 const rootReducer = combineReducers({
   session,
   books: booksReducer,
   worlds: worldReducer,
   characters: characterReducer,
+  events: eventsReducer,
 });
 
 let enhancer;

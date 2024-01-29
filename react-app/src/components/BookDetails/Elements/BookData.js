@@ -1,4 +1,5 @@
 import { GoPencil } from "react-icons/go";
+import { IoTrashOutline } from "react-icons/io5";
 import OpenModalButton from "../../OpenModalButton";
 import BookDetailsUpdate from "../../BookModals/Update/BookDetailsUpdate";
 
@@ -13,6 +14,9 @@ const BookData = ({ data }) => {
         <OpenModalButton
           buttonText={<GoPencil height={18} width={18} />}
           modalComponent={<BookDetailsUpdate bookData={data} />}
+        />
+        <OpenModalButton
+          buttonText={<IoTrashOutline height={18} width={18} />}
         />
       </div>
       <div>

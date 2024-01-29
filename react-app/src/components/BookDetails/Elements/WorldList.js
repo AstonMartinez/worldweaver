@@ -1,4 +1,5 @@
 import { GoPencil } from "react-icons/go";
+import { IoTrashOutline } from "react-icons/io5";
 import WorldDetailsUpdate from "../../BookModals/Update/WorldDetailsUpdate";
 import OpenModalButton from "../../OpenModalButton";
 
@@ -15,6 +16,9 @@ const WorldList = ({ worldData }) => {
             <OpenModalButton
               buttonText={<GoPencil height={18} width={18} />}
               modalComponent={<WorldDetailsUpdate worldData={worldData} />}
+            />
+            <OpenModalButton
+              buttonText={<IoTrashOutline height={18} width={18} />}
             />
           </div>
           <h4>{worldData?.name}</h4>

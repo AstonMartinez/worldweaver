@@ -31,5 +31,8 @@ class Event(db.Model):
             'book_id': self.book_id,
             'world_id': self.world_id,
             'name': self.name,
+            'timeframe': self.timeframe,
+            'details': self.details,
+            'impact': self.impact,
             'location': self.location.to_dict(),
         }
