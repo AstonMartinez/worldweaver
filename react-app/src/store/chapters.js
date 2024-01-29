@@ -89,6 +89,10 @@ export default function chapterReducer(state = initialState, action) {
       newState = Object.assign({ ...state });
       newState.singleChapter = action.payload;
       return newState;
+    case DELETE_CHAPTER:
+      newState = Object.assign({ ...state });
+      delete newState.allChapters[action.payload.id];
+      return newState;
     default:
       return state;
   }

@@ -31,3 +31,15 @@ def update_event(eventId):
         else:
             return { 'error': 'Event not found' }, 404
     return { 'errors': validation_errors_to_error_messages(form.errors) }, 401
+
+@event_routes.route('<int:eventId>', methods=["DELETE"])
+def delete_event(eventId):
+    event = Event.query.get(eventId)
+
+    if event:
+        event_dict = event.to_dict()
+        db.session.delete(event)
+        db.session.commit()
+        return event_dict
+    else:
+        return { 'error': 'Event not found' }, 404

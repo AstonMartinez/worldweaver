@@ -1,5 +1,6 @@
 import { GoPencil } from "react-icons/go";
 import { IoTrashOutline } from "react-icons/io5";
+import EventDelete from "../../BookModals/Delete/EventDelete";
 import EventDetailsUpdate from "../../BookModals/Update/EventDetailsUpdate";
 import OpenModalButton from "../../OpenModalButton";
 
@@ -21,6 +22,7 @@ const EventsList = ({ eventData }) => {
                   />
                   <OpenModalButton
                     buttonText={<IoTrashOutline height={18} width={18} />}
+                    modalComponent={<EventDelete eventData={event} />}
                   />
                 </div>
                 <div>
