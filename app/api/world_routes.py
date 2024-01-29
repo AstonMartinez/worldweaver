@@ -37,3 +37,15 @@ def update_world(worldId):
         else:
             return { 'errors': 'World not found' }
     return { 'errors': validation_errors_to_error_messages(form.errors) }, 401
+
+@world_routes.route('/<int:worldId>', methods=["DELETE"])
+def delete_world(worldId):
+    world = World.query.get(worldId)
+
+    if world:
+        world_dict = world.to_dict()
+        db.session.delete(world)
+        db.session.commit()
+        return world_dict
+    else:
+        return { 'error': 'World not found' }, 404

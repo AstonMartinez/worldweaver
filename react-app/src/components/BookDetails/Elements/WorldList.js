@@ -1,5 +1,6 @@
 import { GoPencil } from "react-icons/go";
 import { IoTrashOutline } from "react-icons/io5";
+import WorldDelete from "../../BookModals/Delete/WorldDelete";
 import WorldDetailsUpdate from "../../BookModals/Update/WorldDetailsUpdate";
 import OpenModalButton from "../../OpenModalButton";
 
@@ -19,6 +20,7 @@ const WorldList = ({ worldData }) => {
             />
             <OpenModalButton
               buttonText={<IoTrashOutline height={18} width={18} />}
+              modalComponent={<WorldDelete worldData={worldData} />}
             />
           </div>
           <h4>{worldData?.name}</h4>
