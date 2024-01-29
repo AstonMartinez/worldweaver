@@ -19,6 +19,16 @@ const deleteOne = (data) => ({
 
 export const fetchLocation = (id) => async (dispatch) => {
   try {
+    const response = await fetch(`/api/locations/${id}`);
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(getOne(data));
+      return data;
+    } else {
+      const error = await response.json();
+      return error;
+    }
   } catch (error) {
     console.log(error);
   }
@@ -26,6 +36,22 @@ export const fetchLocation = (id) => async (dispatch) => {
 
 export const updateLocation = (id, locationData) => async (dispatch) => {
   try {
+    const response = await fetch(`/api/locations/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(locationData),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(updateOne(data));
+      return data;
+    } else {
+      const error = await response.json();
+      return error;
+    }
   } catch (error) {
     console.log(error);
   }
@@ -33,6 +59,21 @@ export const updateLocation = (id, locationData) => async (dispatch) => {
 
 export const deleteLocation = (id) => async (dispatch) => {
   try {
+    const response = await fetch(`/api/locations/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(deleteOne(data));
+      return data;
+    } else {
+      const error = await response.json();
+      return error;
+    }
   } catch (error) {
     console.log(error);
   }
