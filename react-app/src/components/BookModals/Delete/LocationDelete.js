@@ -10,7 +10,7 @@ const LocationDelete = ({ locationData }) => {
 
   const handleDelete = async () => {
     try {
-      toast.loading("Deleting book...", {
+      toast.loading("Deleting location...", {
         position: "top-center",
         theme: "dark",
         toastId: "loadingToast",

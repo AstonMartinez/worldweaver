@@ -1,5 +1,6 @@
 import { GoPencil } from "react-icons/go";
 import { IoTrashOutline } from "react-icons/io5";
+import CharacterDelete from "../../BookModals/Delete/CharacterDelete";
 import CharacterDetailsUpdate from "../../BookModals/Update/CharacterDetailsUpdate";
 import OpenModalButton from "../../OpenModalButton";
 
@@ -26,6 +27,7 @@ const CharactersList = ({ characterData, factionsData }) => {
                   />
                   <OpenModalButton
                     buttonText={<IoTrashOutline height={18} width={18} />}
+                    modalComponent={<CharacterDelete charData={char} />}
                   />
                 </div>
                 <div>

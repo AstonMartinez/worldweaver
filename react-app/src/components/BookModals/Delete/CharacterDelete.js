@@ -2,21 +2,21 @@ import { IoClose } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
-import { deleteWorld } from "../../../store/worlds";
+import { deleteCharacter } from "../../../store/characters";
 
-const WorldDelete = ({ worldData }) => {
+const CharacterDelete = ({ charData }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
   const handleDelete = async () => {
     try {
-      toast.loading("Deleting world...", {
+      toast.loading("Deleting character...", {
         position: "top-center",
         theme: "dark",
         toastId: "loadingToast",
       });
 
-      await dispatch(deleteWorld(worldData.id));
+      await dispatch(deleteCharacter(charData.id));
     } catch (error) {
       toast.error(error.message, {
         position: "top-center",
@@ -41,7 +41,7 @@ const WorldDelete = ({ worldData }) => {
         </button>
       </section>
       <section>
-        <p>Are you sure you want to delete this world?</p>
+        <p>Are you sure you want to delete this character?</p>
       </section>
       <section>
         <button onClick={handleDelete}>Yes, Delete</button>
@@ -51,4 +51,4 @@ const WorldDelete = ({ worldData }) => {
   );
 };
 
-export default WorldDelete;
+export default CharacterDelete;

@@ -45,3 +45,15 @@ def update_char(charId):
         else:
             return { 'error': 'Character not found' }, 404
     return { 'errors': validation_errors_to_error_messages(form.errors) }, 401
+
+@character_routes.route('/<int:charId>', methods=["DELETE"])
+def delete_character(charId):
+    character = Character.query.get(charId)
+
+    if character:
+        character_dict = character.to_dict()
+        db.session.delete(character)
+        db.session.commit()
+        return character_dict
+    else:
+        return { 'error': 'Character not found' }, 404
