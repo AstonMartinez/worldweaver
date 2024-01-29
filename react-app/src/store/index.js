@@ -7,6 +7,7 @@ import characterReducer from "./characters";
 import eventsReducer from "./events";
 import factionReducer from "./factions";
 import chapterReducer from "./chapters";
+import locationReducer from "./locations";
 
 const rootReducer = combineReducers({
   session,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   events: eventsReducer,
   factions: factionReducer,
   chapters: chapterReducer,
+  locations: locationReducer,
 });
 
 let enhancer;
