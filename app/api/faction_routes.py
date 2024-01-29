@@ -29,3 +29,15 @@ def update_faction(factionId):
         else:
             return { 'error': 'Faction not found' }, 404
     return { 'errors': validation_errors_to_error_messages(form.errors) }, 401
+
+@faction_routes.route('<int:factionId>', methods=["DELETE"])
+def delete_faction(factionId):
+    faction = Faction.query.get(factionId)
+
+    if faction:
+        faction_dict = faction.to_dict()
+        db.session.delete(faction)
+        db.session.commit()
+        return faction_dict
+    else:
+        return { 'error': 'Faction not found' }, 404
