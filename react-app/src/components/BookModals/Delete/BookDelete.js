@@ -1,5 +1,6 @@
 import { IoClose } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { deleteBook } from "../../../store/books";

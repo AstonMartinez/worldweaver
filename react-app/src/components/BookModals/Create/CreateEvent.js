@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { fetchOneBook } from "../../../store/books";
 import { createEvent } from "../../../store/events";
 
 const CreateEvent = ({ bookId, locationData, world }) => {
+  const eventState = useSelector((state) => state.events);
   const dispatch = useDispatch();
   const { closeModal } = useModal();
+  const [errors, setErrors] = useState(eventState.errors);
   const [fields, setFields] = useState({
     name: "",
     timeframe: "",
@@ -16,6 +18,10 @@ const CreateEvent = ({ bookId, locationData, world }) => {
     impact: "",
     location_id: "",
   });
+
+  useEffect(() => {
+    setErrors(eventState.errors);
+  }, [dispatch, errors]);
 
   const handleInputChange = (e) => {
     setFields((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -50,13 +56,23 @@ const CreateEvent = ({ bookId, locationData, world }) => {
       });
     } finally {
       toast.dismiss("loadingToast");
-      toast.success("Successfully created!", {
-        position: "top-center",
-        autoClose: 3000,
-        theme: "dark",
-      });
-      dispatch(fetchOneBook(bookId));
-      closeModal();
+      if (errors.length === 0) {
+        toast.success("Successfully created!", {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "dark",
+        });
+        dispatch(fetchOneBook(bookId));
+        closeModal();
+      } else {
+        for (let i = 0; i < errors.length; i++) {
+          toast.error(errors[i], {
+            position: "top-center",
+            theme: "dark",
+          });
+        }
+        return;
+      }
     }
   };
 
@@ -104,8 +120,7 @@ const CreateEvent = ({ bookId, locationData, world }) => {
             <label htmlFor="details">Details:</label>
           </div>
           <div>
-            <input
-              type="text"
+            <textarea
               id="create-event-details"
               name="details"
               value={fields.details}

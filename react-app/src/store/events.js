@@ -1,6 +1,7 @@
 const UPDATE_EVENT = "events/updateOne";
 const DELETE_EVENT = "events/deleteOne";
 const CREATE_EVENT = "events/addOne";
+const ERROR_MESSAGE = "events/errorMsg";
 
 const updateOne = (data) => ({
   type: UPDATE_EVENT,
@@ -14,6 +15,11 @@ const deleteOne = (data) => ({
 
 const addOne = (data) => ({
   type: CREATE_EVENT,
+  payload: data,
+});
+
+const errorMsg = (data) => ({
+  type: ERROR_MESSAGE,
   payload: data,
 });
 
@@ -33,10 +39,12 @@ export const updateEventDetails = (id, eventData) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
@@ -55,10 +63,12 @@ export const deleteEvent = (id) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
@@ -78,14 +88,16 @@ export const createEvent = (eventData) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
-const initialState = { allEvents: {}, singleEvent: {} };
+const initialState = { allEvents: {}, singleEvent: {}, errors: [] };
 
 export default function eventsReducer(state = initialState, action) {
   let newState;
@@ -98,6 +110,10 @@ export default function eventsReducer(state = initialState, action) {
     case DELETE_EVENT:
       newState = Object.assign({ ...state });
       delete newState.allEvents[action.payload.id];
+      return newState;
+    case ERROR_MESSAGE:
+      newState = Object.assign({ ...state });
+      newState.errors = action.payload;
       return newState;
     default:
       return state;

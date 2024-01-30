@@ -2,6 +2,7 @@ const GET_ONE_WORLD = "worlds/getOne";
 const UPDATE_WORLD = "worlds/updateOne";
 const DELETE_WORLD = "worlds/deleteOne";
 const CREATE_WORLD = "worlds/addOne";
+const ERROR_MESSAGE = "worlds/errorMsg";
 
 const getOne = (data) => ({
   type: GET_ONE_WORLD,
@@ -23,6 +24,11 @@ const addOne = (data) => ({
   payload: data,
 });
 
+const errorMsg = (data) => ({
+  type: ERROR_MESSAGE,
+  payload: data,
+});
+
 export const fetchWorld = (id) => async (dispatch) => {
   try {
     const response = await fetch(`/api/worlds/${id}`);
@@ -33,10 +39,12 @@ export const fetchWorld = (id) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
@@ -56,10 +64,12 @@ export const updateWorld = (id, worldData) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
@@ -78,10 +88,12 @@ export const deleteWorld = (id) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
@@ -101,14 +113,16 @@ export const createWorld = (worldData) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
-const initialState = { allWorlds: {}, singleWorld: {} };
+const initialState = { allWorlds: {}, singleWorld: {}, errors: [] };
 
 export default function worldReducer(state = initialState, action) {
   let newState;
@@ -122,6 +136,10 @@ export default function worldReducer(state = initialState, action) {
     case DELETE_WORLD:
       newState = Object.assign({ ...state });
       delete newState.allWorlds[action.payload.id];
+      return newState;
+    case ERROR_MESSAGE:
+      newState = Object.assign({ ...state });
+      newState.errors = action.payload;
       return newState;
     default:
       return state;

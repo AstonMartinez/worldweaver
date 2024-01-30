@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { createCharacter } from "../../../store/characters";
@@ -9,6 +9,8 @@ import { fetchOneBook } from "../../../store/books";
 const CreateCharacter = ({ bookId, factionsData, world }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
+  const characterState = useSelector((state) => state.characters);
+  const [errors, setErrors] = useState(characterState.errors);
   const [fields, setFields] = useState({
     name: "",
     age: 1,
@@ -20,6 +22,10 @@ const CreateCharacter = ({ bookId, factionsData, world }) => {
     quips: "",
     notes: "",
   });
+
+  useEffect(() => {
+    setErrors(characterState.errors);
+  }, [dispatch, errors]);
 
   const handleInputChange = (e) => {
     setFields((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -58,13 +64,23 @@ const CreateCharacter = ({ bookId, factionsData, world }) => {
       });
     } finally {
       toast.dismiss("loadingToast");
-      toast.success("Successfully created!", {
-        position: "top-center",
-        autoClose: 3000,
-        theme: "dark",
-      });
-      dispatch(fetchOneBook(bookId));
-      closeModal();
+      if (errors.length === 0) {
+        toast.success("Successfully created!", {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "dark",
+        });
+        dispatch(fetchOneBook(bookId));
+        closeModal();
+      } else {
+        for (let i = 0; i < errors.length; i++) {
+          toast.error(errors[i], {
+            position: "top-center",
+            theme: "dark",
+          });
+        }
+        return;
+      }
     }
   };
 

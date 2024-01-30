@@ -1,6 +1,7 @@
 const GET_CHAPTER = "chapters/getOne";
 const UPDATE_CHAPTER = "chapters/updateOne";
 const DELETE_CHAPTER = "chapters/deleteOne";
+const ERROR_MESSAGE = "chapters/errorMsg";
 
 const getOne = (data) => ({
   type: GET_CHAPTER,
@@ -17,6 +18,11 @@ const deleteOne = (data) => ({
   payload: data,
 });
 
+const errorMsg = (data) => ({
+  type: ERROR_MESSAGE,
+  payload: data,
+});
+
 export const fetchChapter = (id) => async (dispatch) => {
   try {
     const response = await fetch(`/api/chapters/${id}`);
@@ -27,10 +33,12 @@ export const fetchChapter = (id) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
@@ -50,10 +58,12 @@ export const updateChapter = (id, chapterData) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
@@ -72,14 +82,16 @@ export const deleteChapter = (id) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
-const initialState = { allChapters: {}, singleChapter: {} };
+const initialState = { allChapters: {}, singleChapter: {}, errors: [] };
 
 export default function chapterReducer(state = initialState, action) {
   let newState;
@@ -92,6 +104,10 @@ export default function chapterReducer(state = initialState, action) {
     case DELETE_CHAPTER:
       newState = Object.assign({ ...state });
       delete newState.allChapters[action.payload.id];
+      return newState;
+    case ERROR_MESSAGE:
+      newState = Object.assign({ ...state });
+      newState.errors = action.payload;
       return newState;
     default:
       return state;
