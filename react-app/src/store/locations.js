@@ -1,6 +1,7 @@
 const GET_ONE_LOCATION = "locations/getOne";
 const UPDATE_LOCATION = "locations/updateOne";
 const DELETE_LOCATION = "locations/deleteOne";
+const CREATE_LOCATION = "locations/addOne";
 
 const getOne = (data) => ({
   type: GET_ONE_LOCATION,
@@ -14,6 +15,11 @@ const updateOne = (data) => ({
 
 const deleteOne = (data) => ({
   type: DELETE_LOCATION,
+  payload: data,
+});
+
+const addOne = (data) => ({
+  type: CREATE_LOCATION,
   payload: data,
 });
 
@@ -79,6 +85,29 @@ export const deleteLocation = (id) => async (dispatch) => {
   }
 };
 
+export const createLocation = (locData) => async (dispatch) => {
+  try {
+    const response = await fetch("/api/locations/new", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(locData),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(addOne(data));
+      return data;
+    } else {
+      const error = await response.json();
+      return error;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const initialState = { allLocations: {}, singleLocation: {} };
 
 export default function locationReducer(state = initialState, action) {
@@ -86,6 +115,7 @@ export default function locationReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ONE_LOCATION:
     case UPDATE_LOCATION:
+    case CREATE_LOCATION:
       newState = Object.assign({ ...state });
       newState.singleLocation = action.payload;
       return newState;
