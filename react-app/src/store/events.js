@@ -1,5 +1,6 @@
 const UPDATE_EVENT = "events/updateOne";
 const DELETE_EVENT = "events/deleteOne";
+const CREATE_EVENT = "events/addOne";
 
 const updateOne = (data) => ({
   type: UPDATE_EVENT,
@@ -8,6 +9,11 @@ const updateOne = (data) => ({
 
 const deleteOne = (data) => ({
   type: DELETE_EVENT,
+  payload: data,
+});
+
+const addOne = (data) => ({
+  type: CREATE_EVENT,
   payload: data,
 });
 
@@ -56,12 +62,36 @@ export const deleteEvent = (id) => async (dispatch) => {
   }
 };
 
+export const createEvent = (eventData) => async (dispatch) => {
+  try {
+    const response = await fetch("/api/events/new", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(eventData),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(addOne(data));
+      return data;
+    } else {
+      const error = await response.json();
+      return error;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const initialState = { allEvents: {}, singleEvent: {} };
 
 export default function eventsReducer(state = initialState, action) {
   let newState;
   switch (action.type) {
     case UPDATE_EVENT:
+    case CREATE_EVENT:
       newState = Object.assign({ ...state });
       newState.singleEvent = action.payload;
       return newState;
