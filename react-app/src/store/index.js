@@ -4,12 +4,20 @@ import session from "./session";
 import booksReducer from "./books";
 import worldReducer from "./worlds";
 import characterReducer from "./characters";
+import eventsReducer from "./events";
+import factionReducer from "./factions";
+import chapterReducer from "./chapters";
+import locationReducer from "./locations";
 
 const rootReducer = combineReducers({
   session,
   books: booksReducer,
   worlds: worldReducer,
   characters: characterReducer,
+  events: eventsReducer,
+  factions: factionReducer,
+  chapters: chapterReducer,
+  locations: locationReducer,
 });
 
 let enhancer;

@@ -8,7 +8,7 @@ class Chapter(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    book_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("books.id")), nullable=False)
+    book_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("books.id"), ondelete="CASCADE"), nullable=False)
     title = db.Column(db.String(255))
     highlights = db.Column(db.String(5000))
     draft = db.Column(db.String(50000))

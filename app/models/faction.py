@@ -8,11 +8,11 @@ class Faction(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    book_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("books.id")), nullable=False)
+    book_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("books.id"), ondelete="CASCADE"), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     details = db.Column(db.String(5000))
     allegiance = db.Column(db.String(255))
-    location_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("locations.id")), nullable=False)
+    location_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("locations.id"), ondelete="SET NULL"), nullable=True)
 
     # one book many factions
     book = db.relationship('Book', back_populates='factions')

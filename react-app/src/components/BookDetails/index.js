@@ -6,10 +6,15 @@ import FactionsList from "./Elements/FactionsList";
 import LocationsList from "./Elements/LocationsList";
 import WorldList from "./Elements/WorldList";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneBook } from "../../store/books";
 import BookData from "./Elements/BookData";
+import { IoMdAdd } from "react-icons/io";
+import OpenModalButton from "../OpenModalButton";
+import CreateWorld from "../BookModals/Create/CreateWorld";
+import CreateLocation from "../BookModals/Create/CreateLocation";
+import CreateCharacter from "../BookModals/Create/CreateCharacter";
 
 const BookDetails = () => {
   const dispatch = useDispatch();
@@ -19,6 +24,62 @@ const BookDetails = () => {
   useEffect(() => {
     dispatch(fetchOneBook(bookId));
   }, [dispatch]);
+
+  const [showMenu, setShowMenu] = useState(false);
+  const ulRef = useRef();
+
+  const openMenu = () => {
+    if (showMenu) return;
+    setShowMenu(true);
+  };
+
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const closeMenu = (e) => {
+      if (!ulRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
+
+  const ulClassName = "create-dropdown" + (showMenu ? "" : " hidden");
+  const closeMenu = () => setShowMenu(false);
+
+  const addMenu = (
+    <ul className={ulClassName} ref={ulRef}>
+      <OpenModalButton
+        buttonText="World"
+        onItemClick={closeMenu}
+        modalComponent={<CreateWorld bookId={bookId} />}
+      />
+      <OpenModalButton
+        buttonText="Location"
+        onItemClick={closeMenu}
+        modalComponent={
+          <CreateLocation bookId={bookId} world={bookData.bookWorld} />
+        }
+      />
+      <OpenModalButton
+        buttonText="Character"
+        onItemClick={closeMenu}
+        modalComponent={
+          <CreateCharacter
+            bookId={bookId}
+            factionsData={bookData.bookFactions}
+            world={bookData.bookWorld}
+          />
+        }
+      />
+      <OpenModalButton buttonText="Event" onItemClick={closeMenu} />
+      <OpenModalButton buttonText="Faction" onItemClick={closeMenu} />
+      <OpenModalButton buttonText="Chapter" onItemClick={closeMenu} />
+    </ul>
+  );
   return (
     <>
       <div>
@@ -29,18 +90,25 @@ const BookDetails = () => {
         </h1>
       </div>
       <div>
-        <BookData data={bookData.bookDetails} />
+        <button onClick={openMenu}>
+          {<IoMdAdd height={18} width={18} />} Add
+        </button>
+        {addMenu}
       </div>
       <div>
-        <WorldList worldData={bookData.bookWorld} />
-        <LocationsList locationData={bookData.bookLocations} />
+        <BookData data={bookData.bookDetails} bookId={bookId} />
+      </div>
+      <div>
+        <WorldList worldData={bookData.bookWorld} bookId={bookId} />
+        <LocationsList locationData={bookData.bookLocations} bookId={bookId} />
         <CharactersList
           characterData={bookData.bookCharacters}
           factionsData={bookData.bookFactions}
+          bookId={bookId}
         />
-        <EventsList eventData={bookData.bookEvents} />
-        <FactionsList factionData={bookData.bookFactions} />
-        <ChaptersList chapterData={bookData.bookChapters} />
+        <EventsList eventData={bookData.bookEvents} bookId={bookId} />
+        <FactionsList factionData={bookData.bookFactions} bookId={bookId} />
+        <ChaptersList chapterData={bookData.bookChapters} bookId={bookId} />
       </div>
     </>
   );

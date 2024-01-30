@@ -1,7 +1,10 @@
 import { GoPencil } from "react-icons/go";
+import { IoTrashOutline } from "react-icons/io5";
+import LocationDelete from "../../BookModals/Delete/LocationDelete";
+import LocationDetailsUpdate from "../../BookModals/Update/LocationDetailsUpdate";
 import OpenModalButton from "../../OpenModalButton";
 
-const LocationsList = ({ locationData }) => {
+const LocationsList = ({ locationData, bookId }) => {
   return (
     <>
       <div>
@@ -15,6 +18,18 @@ const LocationsList = ({ locationData }) => {
                 <div>
                   <OpenModalButton
                     buttonText={<GoPencil height={18} width={18} />}
+                    modalComponent={
+                      <LocationDetailsUpdate
+                        locationData={loc}
+                        bookId={bookId}
+                      />
+                    }
+                  />
+                  <OpenModalButton
+                    buttonText={<IoTrashOutline height={18} width={18} />}
+                    modalComponent={
+                      <LocationDelete locationData={loc} bookId={bookId} />
+                    }
                   />
                 </div>
                 <div>

@@ -4,12 +4,15 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { updateCharacter } from "../../../store/characters";
+import { fetchOneBook } from "../../../store/books";
 
-const CharacterDetailsUpdate = ({ charData, factionsData }) => {
+const CharacterDetailsUpdate = ({ charData, factionsData, bookId }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const [fields, setFields] = useState({
     name: charData.name ? charData.name : "",
+    age: charData.age ? charData.age : 1,
+    birthday: charData.birthday ? charData.birthday : "",
     faction_id: charData.faction_id ? charData.faction_id : "",
     description: charData.description ? charData.description : "",
     personality: charData.personality ? charData.personality : "",
@@ -30,6 +33,8 @@ const CharacterDetailsUpdate = ({ charData, factionsData }) => {
 
       const updatedDetails = {
         name: fields.name,
+        age: fields.age,
+        birthday: fields.birthday,
         faction_id: fields.faction_id,
         description: fields.description,
         personality: fields.personality,
@@ -46,6 +51,14 @@ const CharacterDetailsUpdate = ({ charData, factionsData }) => {
       });
     } finally {
       toast.dismiss("loadingToast");
+      toast.success("Successfully updated!", {
+        position: "top-center",
+        autoClose: 3000,
+        theme: "dark",
+      });
+
+      dispatch(fetchOneBook(bookId));
+      closeModal();
     }
   };
 
@@ -72,6 +85,34 @@ const CharacterDetailsUpdate = ({ charData, factionsData }) => {
               id="update-character-name"
               name="name"
               value={fields.name}
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+        </section>
+        <section>
+          <div>
+            <label htmlFor="age">Age:</label>
+          </div>
+          <div>
+            <input
+              type="number"
+              id="update-character-age"
+              name="age"
+              value={fields.age}
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+        </section>
+        <section>
+          <div>
+            <label htmlFor="birthday">Birthday:</label>
+          </div>
+          <div>
+            <input
+              type="text"
+              id="update-character-birthday"
+              name="birthday"
+              value={fields.birthday}
               onChange={(e) => handleInputChange(e)}
             />
           </div>
