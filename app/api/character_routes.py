@@ -4,6 +4,7 @@ from app.models.character import Character
 from flask_login import current_user, login_required
 from .auth_routes import validation_errors_to_error_messages
 from app.forms.update_character_form import UpdateCharacterForm
+from app.forms.create_character_form import CreateCharacterForm
 
 character_routes = Blueprint('characters', __name__)
 
@@ -25,6 +26,8 @@ def update_char(charId):
     if form.validate_on_submit():
         faction_id = request.json['faction_id']
         name = request.json['name']
+        age = request.json['age']
+        birthday = request.json['birthday']
         traits = request.json['traits']
         personality = request.json['personality']
         quips = request.json['quips']
@@ -34,6 +37,8 @@ def update_char(charId):
         if char:
             char.faction_id = faction_id
             char.name = name
+            char.age = age
+            char.birthday = birthday
             char.traits = traits
             char.personality = personality
             char.quips = quips
@@ -57,3 +62,40 @@ def delete_character(charId):
         return character_dict
     else:
         return { 'error': 'Character not found' }, 404
+
+@character_routes.route('/new', methods=["POST"])
+def create_character():
+    form = CreateCharacterForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        book_id = request.json['book_id']
+        world_id = request.json['world_id']
+        faction_id = request.json['faction_id']
+        name = request.json['name']
+        age = request.json['age']
+        birthday = request.json['birthday']
+        traits = request.json['traits']
+        personality = request.json['personality']
+        quips = request.json['quips']
+        description = request.json['description']
+        notes = request.json['notes']
+
+        new_character = Character(
+            book_id=book_id,
+            world_id=world_id,
+            faction_id=faction_id,
+            name=name,
+            age=age,
+            birthday=birthday,
+            traits=traits,
+            personality=personality,
+            quips=quips,
+            description=description,
+            notes=notes
+        )
+
+        db.session.add(new_character)
+        db.session.commit()
+        return new_character.to_dict()
+    return { 'errors': validation_errors_to_error_messages(form.errors) }, 401

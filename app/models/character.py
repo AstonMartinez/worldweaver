@@ -12,6 +12,8 @@ class Character(db.Model):
     world_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("worlds.id"), ondelete="SET NULL"), nullable=True)
     faction_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('factions.id'), ondelete="SET NULL"), nullable=True)
     name = db.Column(db.String(255), nullable=False)
+    age = db.Column(db.Integer)
+    birthday = db.Column(db.String(255))
     traits = db.Column(db.String(1000))
     personality = db.Column(db.String(1000))
     quips = db.Column(db.String(1000))
@@ -33,6 +35,8 @@ class Character(db.Model):
             'world_id': self.world_id,
             'faction_id': self.faction_id,
             'name': self.name,
+            'age': self.age,
+            'birthday': self.birthday,
             'traits': self.traits,
             'personality': self.personality,
             'quips': self.quips,

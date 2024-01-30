@@ -14,6 +14,7 @@ import { IoMdAdd } from "react-icons/io";
 import OpenModalButton from "../OpenModalButton";
 import CreateWorld from "../BookModals/Create/CreateWorld";
 import CreateLocation from "../BookModals/Create/CreateLocation";
+import CreateCharacter from "../BookModals/Create/CreateCharacter";
 
 const BookDetails = () => {
   const dispatch = useDispatch();
@@ -63,7 +64,17 @@ const BookDetails = () => {
           <CreateLocation bookId={bookId} world={bookData.bookWorld} />
         }
       />
-      <OpenModalButton buttonText="Character" onItemClick={closeMenu} />
+      <OpenModalButton
+        buttonText="Character"
+        onItemClick={closeMenu}
+        modalComponent={
+          <CreateCharacter
+            bookId={bookId}
+            factionsData={bookData.bookFactions}
+            world={bookData.bookWorld}
+          />
+        }
+      />
       <OpenModalButton buttonText="Event" onItemClick={closeMenu} />
       <OpenModalButton buttonText="Faction" onItemClick={closeMenu} />
       <OpenModalButton buttonText="Chapter" onItemClick={closeMenu} />
