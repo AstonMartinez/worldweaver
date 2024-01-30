@@ -12,6 +12,7 @@ import { fetchOneBook } from "../../store/books";
 import BookData from "./Elements/BookData";
 import { IoMdAdd } from "react-icons/io";
 import OpenModalButton from "../OpenModalButton";
+import CreateWorld from "../BookModals/Create/CreateWorld";
 
 const BookDetails = () => {
   const dispatch = useDispatch();
@@ -49,7 +50,11 @@ const BookDetails = () => {
 
   const addMenu = (
     <ul className={ulClassName} ref={ulRef}>
-      <OpenModalButton buttonText="World" onItemClick={closeMenu} />
+      <OpenModalButton
+        buttonText="World"
+        onItemClick={closeMenu}
+        modalComponent={<CreateWorld bookId={bookId} />}
+      />
       <OpenModalButton buttonText="Location" onItemClick={closeMenu} />
       <OpenModalButton buttonText="Character" onItemClick={closeMenu} />
       <OpenModalButton buttonText="Event" onItemClick={closeMenu} />

@@ -1,6 +1,7 @@
 const GET_ONE_WORLD = "worlds/getOne";
 const UPDATE_WORLD = "worlds/updateOne";
 const DELETE_WORLD = "worlds/deleteOne";
+const CREATE_WORLD = "worlds/addOne";
 
 const getOne = (data) => ({
   type: GET_ONE_WORLD,
@@ -14,6 +15,11 @@ const updateOne = (data) => ({
 
 const deleteOne = (data) => ({
   type: DELETE_WORLD,
+  payload: data,
+});
+
+const addOne = (data) => ({
+  type: CREATE_WORLD,
   payload: data,
 });
 
@@ -79,6 +85,29 @@ export const deleteWorld = (id) => async (dispatch) => {
   }
 };
 
+export const createWorld = (worldData) => async (dispatch) => {
+  try {
+    const response = await fetch("/api/worlds/new", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(worldData),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(addOne(data));
+      return data;
+    } else {
+      const error = await response.json();
+      return error;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const initialState = { allWorlds: {}, singleWorld: {} };
 
 export default function worldReducer(state = initialState, action) {
@@ -86,6 +115,7 @@ export default function worldReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ONE_WORLD:
     case UPDATE_WORLD:
+    case CREATE_WORLD:
       newState = Object.assign({ ...state });
       newState.singleWorld = action.payload;
       return newState;

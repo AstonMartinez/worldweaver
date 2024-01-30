@@ -12,7 +12,7 @@ const WorldList = ({ worldData, bookId }) => {
         <div>
           <h3>World</h3>
         </div>
-        {worldData.name && (
+        {worldData?.name && (
           <div>
             <div></div>
             <div>
@@ -32,7 +32,7 @@ const WorldList = ({ worldData, bookId }) => {
             <h4>{worldData?.name}</h4>
           </div>
         )}
-        {!worldData.name && (
+        {!worldData?.name && (
           <OpenModalButton buttonText={<IoMdAdd height={18} width={18} />} />
         )}
       </div>
