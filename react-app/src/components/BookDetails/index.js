@@ -17,6 +17,7 @@ import CreateLocation from "../BookModals/Create/CreateLocation";
 import CreateCharacter from "../BookModals/Create/CreateCharacter";
 import CreateFaction from "../BookModals/Create/CreateFaction";
 import CreateEvent from "../BookModals/Create/CreateEvent";
+import CreateChapter from "../BookModals/Create/CreateChapter";
 
 const BookDetails = () => {
   const dispatch = useDispatch();
@@ -98,7 +99,11 @@ const BookDetails = () => {
           />
         }
       />
-      <OpenModalButton buttonText="Chapter" onItemClick={closeMenu} />
+      <OpenModalButton
+        buttonText="Chapter"
+        onItemClick={closeMenu}
+        modalComponent={<CreateChapter bookId={bookId} />}
+      />
     </ul>
   );
   return (
