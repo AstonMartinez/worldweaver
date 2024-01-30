@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { updateWorld } from "../../../store/worlds";
@@ -9,11 +9,18 @@ import { fetchOneBook } from "../../../store/books";
 const WorldDetailsUpdate = ({ worldData, bookId }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
+  const worldState = useSelector((state) => state.worlds);
+  const [errors, setErrors] = useState(worldState.errors);
+
   const [fields, setFields] = useState({
     name: worldData.name ? worldData.name : "",
     description: worldData.description ? worldData.description : "",
     notes: worldData.notes ? worldData.notes : "",
   });
+
+  useEffect(() => {
+    setErrors(worldState.errors);
+  }, [dispatch, errors]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,14 +46,23 @@ const WorldDetailsUpdate = ({ worldData, bookId }) => {
       });
     } finally {
       toast.dismiss("loadingToast");
-      toast.success("Successfully updated!", {
-        position: "top-center",
-        autoClose: 3000,
-        theme: "dark",
-      });
-
-      dispatch(fetchOneBook(bookId));
-      closeModal();
+      if (errors.length === 0) {
+        toast.success("Successfully updated!", {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "dark",
+        });
+        dispatch(fetchOneBook(bookId));
+        closeModal();
+      } else {
+        for (let i = 0; i < errors.length; i++) {
+          toast.error(errors[i], {
+            position: "top-center",
+            theme: "dark",
+          });
+        }
+        return;
+      }
     }
   };
 
