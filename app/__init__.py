@@ -14,6 +14,9 @@ from .api.faction_routes import faction_routes
 from .api.chapter_routes import chapter_routes
 from .api.location_routes import location_routes
 from .api.character_routes import character_routes
+from .api.race_routes import race_routes
+from .api.magic_routes import magic_routes
+from .api.element_routes import element_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -42,6 +45,9 @@ app.register_blueprint(faction_routes, url_prefix='/api/factions')
 app.register_blueprint(chapter_routes, url_prefix='/api/chapters')
 app.register_blueprint(location_routes, url_prefix='/api/locations')
 app.register_blueprint(character_routes, url_prefix='/api/characters')
+app.register_blueprint(race_routes, url_prefix='/api/races')
+app.register_blueprint(magic_routes, url_prefix='/api/magic')
+app.register_blueprint(element_routes, url_prefix='/api/elements')
 db.init_app(app)
 Migrate(app, db)
 

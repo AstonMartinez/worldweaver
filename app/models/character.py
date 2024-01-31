@@ -14,6 +14,7 @@ class Character(db.Model):
     name = db.Column(db.String(255), nullable=False)
     age = db.Column(db.Integer)
     birthday = db.Column(db.String(255))
+    race = db.Column(db.String(255))
     traits = db.Column(db.String(1000))
     personality = db.Column(db.String(1000))
     quips = db.Column(db.String(1000))
@@ -37,12 +38,10 @@ class Character(db.Model):
             'name': self.name,
             'age': self.age,
             'birthday': self.birthday,
+            'race': self.race,
             'traits': self.traits,
             'personality': self.personality,
             'quips': self.quips,
             'description': self.description,
-            'notes': self.notes,
-            # 'world': self.world ? self.world.to_dict()
-            # 'events': [event.to_dict() for event in self.events],
-            # 'factions': [faction.to_dict() for faction in self.factions]
+            'notes': self.notes
         }

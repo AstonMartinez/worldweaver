@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db
+from app.models import db
 from app.models.character import Character
 from flask_login import current_user, login_required
 from .auth_routes import validation_errors_to_error_messages
@@ -28,6 +28,7 @@ def update_char(charId):
         name = request.json['name']
         age = request.json['age']
         birthday = request.json['birthday']
+        race = request.json['race']
         traits = request.json['traits']
         personality = request.json['personality']
         quips = request.json['quips']
@@ -39,6 +40,7 @@ def update_char(charId):
             char.name = name
             char.age = age
             char.birthday = birthday
+            char.race = race
             char.traits = traits
             char.personality = personality
             char.quips = quips
@@ -48,7 +50,7 @@ def update_char(charId):
             db.session.commit()
             return char.to_dict()
         else:
-            return { 'error': 'Character not found' }, 404
+            return { 'errors': 'Character not found' }, 404
     return { 'errors': validation_errors_to_error_messages(form.errors) }, 401
 
 @character_routes.route('/<int:charId>', methods=["DELETE"])
@@ -61,7 +63,7 @@ def delete_character(charId):
         db.session.commit()
         return character_dict
     else:
-        return { 'error': 'Character not found' }, 404
+        return { 'errors': 'Character not found' }, 404
 
 @character_routes.route('/new', methods=["POST"])
 def create_character():
@@ -75,6 +77,7 @@ def create_character():
         name = request.json['name']
         age = request.json['age']
         birthday = request.json['birthday']
+        race = request.json['race']
         traits = request.json['traits']
         personality = request.json['personality']
         quips = request.json['quips']
@@ -88,6 +91,7 @@ def create_character():
             name=name,
             age=age,
             birthday=birthday,
+            race=race,
             traits=traits,
             personality=personality,
             quips=quips,
