@@ -18,6 +18,8 @@ import CreateCharacter from "../BookModals/Create/CreateCharacter";
 import CreateFaction from "../BookModals/Create/CreateFaction";
 import CreateEvent from "../BookModals/Create/CreateEvent";
 import CreateChapter from "../BookModals/Create/CreateChapter";
+import RacesList from "./Elements/RacesList";
+import CreateRace from "../BookModals/Create/CreateRace";
 
 const BookDetails = () => {
   const dispatch = useDispatch();
@@ -105,6 +107,19 @@ const BookDetails = () => {
         onItemClick={closeMenu}
         modalComponent={<CreateChapter bookId={bookId} />}
       />
+      <OpenModalButton
+        buttonText="Race"
+        onItemClick={closeMenu}
+        modalComponent={
+          <CreateRace
+            bookId={bookId}
+            world={bookData?.bookWorld}
+            locationData={bookData.bookLocations}
+          />
+        }
+      />
+      <OpenModalButton buttonText="Story Element" onItemClick={closeMenu} />
+      <OpenModalButton buttonText="Magic" onItemClick={closeMenu} />
     </ul>
   );
   return (
@@ -132,6 +147,11 @@ const BookDetails = () => {
           characterData={bookData.bookCharacters}
           factionsData={bookData.bookFactions}
           bookId={bookId}
+        />
+        <RacesList
+          raceData={bookData.bookRaces}
+          bookId={bookId}
+          locationData={bookData.bookLocations}
         />
         <EventsList eventData={bookData.bookEvents} bookId={bookId} />
         <FactionsList factionData={bookData.bookFactions} bookId={bookId} />
