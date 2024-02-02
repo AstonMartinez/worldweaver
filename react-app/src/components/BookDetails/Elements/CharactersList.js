@@ -4,7 +4,7 @@ import CharacterDelete from "../../BookModals/Delete/CharacterDelete";
 import CharacterDetailsUpdate from "../../BookModals/Update/CharacterDetailsUpdate";
 import OpenModalButton from "../../OpenModalButton";
 
-const CharactersList = ({ characterData, factionsData, bookId }) => {
+const CharactersList = ({ characterData, factionsData, bookId, raceData }) => {
   return (
     <>
       <div>
@@ -23,6 +23,7 @@ const CharactersList = ({ characterData, factionsData, bookId }) => {
                         charData={char}
                         factionsData={factionsData}
                         bookId={bookId}
+                        raceData={raceData}
                       />
                     }
                   />

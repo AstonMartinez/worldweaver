@@ -75,6 +75,7 @@ const BookDetails = () => {
             bookId={bookId}
             factionsData={bookData.bookFactions}
             world={bookData.bookWorld}
+            raceData={bookData.bookRaces}
           />
         }
       />

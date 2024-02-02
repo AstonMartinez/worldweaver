@@ -5,8 +5,9 @@ import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { createCharacter } from "../../../store/characters";
 import { fetchOneBook } from "../../../store/books";
+import "../BookModals.css";
 
-const CreateCharacter = ({ bookId, factionsData, world }) => {
+const CreateCharacter = ({ bookId, factionsData, world, raceData }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const characterState = useSelector((state) => state.characters);
@@ -21,6 +22,7 @@ const CreateCharacter = ({ bookId, factionsData, world }) => {
     traits: "",
     quips: "",
     notes: "",
+    race: "",
   });
 
   useEffect(() => {
@@ -54,6 +56,7 @@ const CreateCharacter = ({ bookId, factionsData, world }) => {
         traits: fields.traits,
         quips: fields.quips,
         notes: fields.notes,
+        race: fields.race,
       };
 
       await dispatch(createCharacter(characterDetails));
@@ -91,7 +94,7 @@ const CreateCharacter = ({ bookId, factionsData, world }) => {
           <IoClose height={18} weight={18} />
         </button>
       </section>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form onSubmit={(e) => handleSubmit(e)} className="modal-form">
         <section>
           <h3>Create a Character</h3>
         </section>
@@ -208,11 +211,45 @@ const CreateCharacter = ({ bookId, factionsData, world }) => {
           </div>
           <div>
             <select name="faction_id" onChange={(e) => handleInputChange(e)}>
-              {factionsData.map((fac, idx) => (
+              {factionsData?.map((fac, idx) => (
                 <option key={idx} value={fac.id}>
                   {fac.name}
                 </option>
               ))}
+            </select>
+          </div>
+        </section>
+        <section>
+          <div>
+            <label htmlFor="race">Race:</label>
+          </div>
+          <div>
+            <select name="race" onChange={(e) => handleInputChange(e)}>
+              <optgroup label="Your Races">
+                {raceData?.map((race, idx) => (
+                  <option key={idx} value={race.name}>
+                    {race.name}
+                  </option>
+                ))}
+              </optgroup>
+              <optgroup label="Default Races">
+                <option value="Angel">Angel</option>
+                <option value="Cryptid">Cryptid</option>
+                <option value="Demigod">Demigod</option>
+                <option value="Demon">Demon</option>
+                <option value="Dwarven">Dwarven</option>
+                <option value="Elven">Elven</option>
+                <option value="Extraterrestrial">Extraterrestrial</option>
+                <option value="Goblin">Goblin</option>
+                <option value="God">God</option>
+                <option value="Human">Human</option>
+                <option value="Nephilim">Nephilim</option>
+                <option value="Ogre">Ogre</option>
+                <option value="Orc">Orc</option>
+                <option value="Undead">Undead</option>
+                <option value="Vampire">Vampire</option>
+                <option value="Werewolf">Werewolf</option>
+              </optgroup>
             </select>
           </div>
         </section>
