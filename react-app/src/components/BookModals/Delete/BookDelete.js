@@ -1,5 +1,6 @@
 import { IoClose } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { deleteBook } from "../../../store/books";
@@ -8,7 +9,13 @@ import { useHistory } from "react-router-dom";
 const BookDelete = ({ bookData }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const bookState = useSelector((state) => state.books);
+  const [errors, setErrors] = useState(bookState.errors);
   const { closeModal } = useModal();
+
+  useEffect(() => {
+    setErrors(bookState.errors);
+  }, [dispatch, errors]);
 
   const handleDelete = async () => {
     try {
@@ -26,13 +33,23 @@ const BookDelete = ({ bookData }) => {
       });
     } finally {
       toast.dismiss("loadingToast");
-      toast.success("Successfully deleted", {
-        position: "top-center",
-        autoClose: 3000,
-        theme: "dark",
-      });
-      history.push("/");
-      closeModal();
+      if (errors.length === 0) {
+        toast.success("Successfully deleted", {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "dark",
+        });
+        history.push("/");
+        closeModal();
+      } else {
+        for (let i = 0; i < errors.length; i++) {
+          toast.error(errors[i], {
+            position: "top-center",
+            theme: "dark",
+          });
+        }
+        return;
+      }
     }
   };
 

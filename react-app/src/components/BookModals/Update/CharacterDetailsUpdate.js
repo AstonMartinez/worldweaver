@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { updateCharacter } from "../../../store/characters";
 import { fetchOneBook } from "../../../store/books";
 
-const CharacterDetailsUpdate = ({ charData, factionsData, bookId }) => {
+const CharacterDetailsUpdate = ({
+  charData,
+  factionsData,
+  bookId,
+  raceData,
+}) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
+  const characterState = useSelector((state) => state.characters);
+  const [errors, setErrors] = useState(characterState.errors);
+
   const [fields, setFields] = useState({
     name: charData.name ? charData.name : "",
     age: charData.age ? charData.age : 1,
@@ -19,7 +27,12 @@ const CharacterDetailsUpdate = ({ charData, factionsData, bookId }) => {
     traits: charData.traits ? charData.traits : "",
     quips: charData.quips ? charData.quips : "",
     notes: charData.notes ? charData.notes : "",
+    race: charData.race ? charData.race : "",
   });
+
+  useEffect(() => {
+    setErrors(characterState.errors);
+  }, [dispatch, errors]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,6 +54,7 @@ const CharacterDetailsUpdate = ({ charData, factionsData, bookId }) => {
         traits: fields.traits,
         quips: fields.quips,
         notes: fields.notes,
+        race: fields.race,
       };
 
       await dispatch(updateCharacter(charData.id, updatedDetails));
@@ -51,14 +65,23 @@ const CharacterDetailsUpdate = ({ charData, factionsData, bookId }) => {
       });
     } finally {
       toast.dismiss("loadingToast");
-      toast.success("Successfully updated!", {
-        position: "top-center",
-        autoClose: 3000,
-        theme: "dark",
-      });
-
-      dispatch(fetchOneBook(bookId));
-      closeModal();
+      if (errors.length === 0) {
+        toast.success("Successfully updated!", {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "dark",
+        });
+        dispatch(fetchOneBook(bookId));
+        closeModal();
+      } else {
+        for (let i = 0; i < errors.length; i++) {
+          toast.error(errors[i], {
+            position: "top-center",
+            theme: "dark",
+          });
+        }
+        return;
+      }
     }
   };
 
@@ -193,6 +216,40 @@ const CharacterDetailsUpdate = ({ charData, factionsData, bookId }) => {
                   {fac.name}
                 </option>
               ))}
+            </select>
+          </div>
+        </section>
+        <section>
+          <div>
+            <label htmlFor="race">Race:</label>
+          </div>
+          <div>
+            <select name="race" onChange={(e) => handleInputChange(e)}>
+              <optgroup label="Your Races">
+                {raceData?.map((race, idx) => (
+                  <option key={idx} value={race.name}>
+                    {race.name}
+                  </option>
+                ))}
+              </optgroup>
+              <optgroup label="Default Races">
+                <option value="Angel">Angel</option>
+                <option value="Cryptid">Cryptid</option>
+                <option value="Demigod">Demigod</option>
+                <option value="Demon">Demon</option>
+                <option value="Dwarven">Dwarven</option>
+                <option value="Elven">Elven</option>
+                <option value="Extraterrestrial">Extraterrestrial</option>
+                <option value="Goblin">Goblin</option>
+                <option value="God">God</option>
+                <option value="Human">Human</option>
+                <option value="Nephilim">Nephilim</option>
+                <option value="Ogre">Ogre</option>
+                <option value="Orc">Orc</option>
+                <option value="Undead">Undead</option>
+                <option value="Vampire">Vampire</option>
+                <option value="Werewolf">Werewolf</option>
+              </optgroup>
             </select>
           </div>
         </section>

@@ -13,6 +13,12 @@ class World(db.Model):
     name = db.Column(db.String(255))
     description = db.Column(db.String(5000))
     notes = db.Column(db.String(5000))
+    landscape = db.Column(db.String(5000))
+    natural_resources = db.Column(db.String(5000))
+    seasons = db.Column(db.String(5000))
+    weather = db.Column(db.String(5000))
+    animals = db.Column(db.String(5000))
+    plants = db.Column(db.String(5000))
 
     # one world many locations
     locations = db.relationship('Location', back_populates='world')
@@ -27,5 +33,11 @@ class World(db.Model):
             'name': self.name,
             'description': self.description,
             'notes': self.notes,
+            'landscape': self.landscape,
+            'natural_resources': self.natural_resources,
+            'seasons': self.seasons,
+            'weather': self.weather,
+            'animals': self.animals,
+            'plants': self.plants
             # 'locations': [loc.to_dict() for loc in self.locations]
         }

@@ -7,6 +7,9 @@ from app.models.event import Event
 from app.models.location import Location
 from app.models.faction import Faction
 from app.models.world import World
+from app.models.magic import Magic
+from app.models.race import Race
+from app.models.element import Element
 from app.forms.update_book_form import UpdateBookForm
 from app.forms.create_book_form import CreateBookForm
 from flask_login import current_user, login_required
@@ -40,7 +43,10 @@ def get_one_book(bookId):
         'bookFactions': [],
         'bookEvents': [],
         'bookLocations': [],
-        'bookWorld': {}
+        'bookWorld': {},
+        'bookRaces': [],
+        'bookMagic': [],
+        'bookElements': []
     }
     book = Book.query.get(bookId)
     if book:
@@ -75,6 +81,22 @@ def get_one_book(bookId):
             world = World.query.filter(World.book_id == bookId).all()
             if len(world) > 0:
                 result['bookWorld'] = world[0].to_dict()
+
+            races = Race.query.filter(Race.book_id == bookId).all()
+            if len(races) > 0:
+                racs = [race.to_dict() for race in races]
+                result['bookRaces'] = racs
+
+            magics = Magic.query.filter(Magic.book_id == bookId).all()
+            if len(magics) > 0:
+                mags = [magic.to_dict() for magic in magics]
+                result['bookMagic'] = mags
+
+            elements = Element.query.filter(Element.book_id == bookId).all()
+            if len(elements) > 0:
+                elems = [elem.to_dict() for elem in elements]
+                result['bookElements'] = elems
+
         return result
     return {}
 

@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { updateEventDetails } from "../../../store/events";
@@ -9,12 +9,19 @@ import { fetchOneBook } from "../../../store/books";
 const EventDetailsUpdate = ({ eventData, bookId }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
+  const eventState = useSelector((state) => state.events);
+  const [errors, setErrors] = useState(eventState.errors);
+
   const [fields, setFields] = useState({
     name: eventData.name ? eventData.name : "",
     timeframe: eventData.timeframe ? eventData.timeframe : "",
     details: eventData.details ? eventData.details : "",
     impact: eventData.impact ? eventData.impact : "",
   });
+
+  useEffect(() => {
+    setErrors(eventState.errors);
+  }, [dispatch, errors]);
 
   const handleInputChange = (e) => {
     setFields((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -46,14 +53,23 @@ const EventDetailsUpdate = ({ eventData, bookId }) => {
       });
     } finally {
       toast.dismiss("loadingToast");
-      toast.success("Successfully updated!", {
-        position: "top-center",
-        autoClose: 3000,
-        theme: "dark",
-      });
-
-      dispatch(fetchOneBook(bookId));
-      closeModal();
+      if (errors.length === 0) {
+        toast.success("Successfully updated!", {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "dark",
+        });
+        dispatch(fetchOneBook(bookId));
+        closeModal();
+      } else {
+        for (let i = 0; i < errors.length; i++) {
+          toast.error(errors[i], {
+            position: "top-center",
+            theme: "dark",
+          });
+        }
+        return;
+      }
     }
   };
 

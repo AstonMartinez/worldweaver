@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { fetchOneBook, updateOneBook } from "../../../store/books";
@@ -8,6 +8,9 @@ import { fetchOneBook, updateOneBook } from "../../../store/books";
 const BookDetailsUpdate = ({ bookData, bookId }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
+  const bookState = useSelector((state) => state.books);
+  const [errors, setErrors] = useState(bookState.errors);
+
   const [fields, setFields] = useState({
     title: bookData.title ? bookData.title : "",
     plot: bookData.plot_details ? bookData.plot_details : "",
@@ -16,6 +19,10 @@ const BookDetailsUpdate = ({ bookData, bookId }) => {
     genres: bookData.genres ? bookData.genres : "",
     blurb: bookData.blurb ? bookData.blurb : "",
   });
+
+  useEffect(() => {
+    setErrors(bookState.errors);
+  }, [dispatch, errors]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,13 +51,23 @@ const BookDetailsUpdate = ({ bookData, bookId }) => {
       });
     } finally {
       toast.dismiss("loadingToast");
-      toast.success("Successfully updated!", {
-        position: "top-center",
-        autoClose: 3000,
-        theme: "dark",
-      });
-      dispatch(fetchOneBook(bookId));
-      closeModal();
+      if (errors.length === 0) {
+        toast.success("Successfully updated!", {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "dark",
+        });
+        dispatch(fetchOneBook(bookId));
+        closeModal();
+      } else {
+        for (let i = 0; i < errors.length; i++) {
+          toast.error(errors[i], {
+            position: "top-center",
+            theme: "dark",
+          });
+        }
+        return;
+      }
     }
   };
 

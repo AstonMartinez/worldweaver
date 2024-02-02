@@ -2,6 +2,7 @@ const GET_ONE_CHARACTER = "characters/getOne";
 const UPDATE_CHARACTER = "characters/updateOne";
 const DELETE_CHARACTER = "characters/deleteOne";
 const CREATE_CHARACTER = "characters/addOne";
+const ERROR_MESSAGE = "characters/errorMsg";
 
 const getOne = (data) => ({
   type: GET_ONE_CHARACTER,
@@ -23,6 +24,11 @@ const addOne = (data) => ({
   payload: data,
 });
 
+const errorMsg = (data) => ({
+  type: ERROR_MESSAGE,
+  payload: data,
+});
+
 export const fetchOneCharacter = (id) => async (dispatch) => {
   try {
     const response = await fetch(`/api/characters/${id}`);
@@ -33,10 +39,12 @@ export const fetchOneCharacter = (id) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
@@ -56,10 +64,12 @@ export const updateCharacter = (id, charData) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
@@ -78,10 +88,12 @@ export const deleteCharacter = (id) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
@@ -101,14 +113,16 @@ export const createCharacter = (charData) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
-const initialState = { allCharacters: {}, singleCharacter: {} };
+const initialState = { allCharacters: {}, singleCharacter: {}, errors: [] };
 
 export default function characterReducer(state = initialState, action) {
   let newState;
@@ -122,6 +136,10 @@ export default function characterReducer(state = initialState, action) {
     case DELETE_CHARACTER:
       newState = Object.assign({ ...state });
       delete newState.allCharacters[action.payload.id];
+      return newState;
+    case ERROR_MESSAGE:
+      newState = Object.assign({ ...state });
+      newState.errors = action.payload;
       return newState;
     default:
       return state;

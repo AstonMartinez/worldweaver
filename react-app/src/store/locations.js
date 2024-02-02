@@ -2,6 +2,7 @@ const GET_ONE_LOCATION = "locations/getOne";
 const UPDATE_LOCATION = "locations/updateOne";
 const DELETE_LOCATION = "locations/deleteOne";
 const CREATE_LOCATION = "locations/addOne";
+const ERROR_MESSAGE = "locations/errorMsg";
 
 const getOne = (data) => ({
   type: GET_ONE_LOCATION,
@@ -23,6 +24,11 @@ const addOne = (data) => ({
   payload: data,
 });
 
+const errorMsg = (data) => ({
+  type: ERROR_MESSAGE,
+  payload: data,
+});
+
 export const fetchLocation = (id) => async (dispatch) => {
   try {
     const response = await fetch(`/api/locations/${id}`);
@@ -33,10 +39,11 @@ export const fetchLocation = (id) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
   }
 };
 
@@ -56,10 +63,11 @@ export const updateLocation = (id, locationData) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
   }
 };
 
@@ -78,10 +86,11 @@ export const deleteLocation = (id) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
   }
 };
 
@@ -101,14 +110,15 @@ export const createLocation = (locData) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
   }
 };
 
-const initialState = { allLocations: {}, singleLocation: {} };
+const initialState = { allLocations: {}, singleLocation: {}, errors: [] };
 
 export default function locationReducer(state = initialState, action) {
   let newState;
@@ -122,6 +132,10 @@ export default function locationReducer(state = initialState, action) {
     case DELETE_LOCATION:
       newState = Object.assign({ ...state });
       delete newState.allLocations[action.payload.id];
+      return newState;
+    case ERROR_MESSAGE:
+      newState = Object.assign({ ...state });
+      newState.errors = action.payload;
       return newState;
     default:
       return state;

@@ -3,6 +3,7 @@ const GET_SINGLE_BOOK = "books/getOne";
 const UPDATE_BOOK = "books/updateOne";
 const DELETE_BOOK = "books/deleteOne";
 const CREATE_BOOK = "books/addOne";
+const ERROR_MESSAGE = "books/errorMsg";
 
 const getUser = (data) => ({
   type: GET_USER_BOOKS,
@@ -29,6 +30,11 @@ const addOne = (data) => ({
   payload: data,
 });
 
+const errorMsg = (data) => ({
+  type: ERROR_MESSAGE,
+  payload: data,
+});
+
 export const fetchUserBooks = () => async (dispatch) => {
   try {
     const response = await fetch("/api/books/user");
@@ -39,10 +45,12 @@ export const fetchUserBooks = () => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
@@ -56,10 +64,12 @@ export const fetchOneBook = (id) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
@@ -79,10 +89,12 @@ export const updateOneBook = (id, bookInfo) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
@@ -101,10 +113,12 @@ export const deleteBook = (id) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
@@ -124,14 +138,16 @@ export const createBook = (bookData) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
-const initialState = { allBooks: {}, singleBook: {} };
+const initialState = { allBooks: {}, singleBook: {}, errors: [] };
 
 export default function booksReducer(state = initialState, action) {
   let newState;
@@ -149,6 +165,10 @@ export default function booksReducer(state = initialState, action) {
     case DELETE_BOOK:
       newState = Object.assign({ ...state });
       delete newState.allBooks[action.payload.id];
+      return newState;
+    case ERROR_MESSAGE:
+      newState = Object.assign({ ...state });
+      newState.errors = action.payload;
       return newState;
     default:
       return state;

@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { createBook, fetchUserBooks } from "../../../store/books";
@@ -8,6 +8,8 @@ import { createBook, fetchUserBooks } from "../../../store/books";
 const CreateBook = () => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
+  const bookState = useSelector((state) => state.books);
+  const [errors, setErrors] = useState(bookState.errors);
   const [fields, setFields] = useState({
     title: "",
     blurb: "",
@@ -16,6 +18,10 @@ const CreateBook = () => {
     plot: "",
     styleAndVoice: "",
   });
+
+  useEffect(() => {
+    setErrors(bookState.errors);
+  }, [dispatch, errors]);
 
   const handleInputChange = (e) => {
     setFields((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -49,13 +55,23 @@ const CreateBook = () => {
       });
     } finally {
       toast.dismiss("loadingToast");
-      toast.success("Successfully created!", {
-        position: "top-center",
-        autoClose: 3000,
-        theme: "dark",
-      });
-      dispatch(fetchUserBooks());
-      closeModal();
+      if (errors.length === 0) {
+        toast.success("Successfully created!", {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "dark",
+        });
+        dispatch(fetchUserBooks());
+        closeModal();
+      } else {
+        for (let i = 0; i < errors.length; i++) {
+          toast.error(errors[i], {
+            position: "top-center",
+            theme: "dark",
+          });
+        }
+        return;
+      }
     }
   };
 

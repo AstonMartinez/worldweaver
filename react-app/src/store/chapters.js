@@ -1,6 +1,8 @@
 const GET_CHAPTER = "chapters/getOne";
 const UPDATE_CHAPTER = "chapters/updateOne";
 const DELETE_CHAPTER = "chapters/deleteOne";
+const CREATE_CHAPTER = "chapters/addOne";
+const ERROR_MESSAGE = "chapters/errorMsg";
 
 const getOne = (data) => ({
   type: GET_CHAPTER,
@@ -17,6 +19,16 @@ const deleteOne = (data) => ({
   payload: data,
 });
 
+const addOne = (data) => ({
+  type: CREATE_CHAPTER,
+  payload: data,
+});
+
+const errorMsg = (data) => ({
+  type: ERROR_MESSAGE,
+  payload: data,
+});
+
 export const fetchChapter = (id) => async (dispatch) => {
   try {
     const response = await fetch(`/api/chapters/${id}`);
@@ -27,10 +39,12 @@ export const fetchChapter = (id) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
@@ -50,10 +64,12 @@ export const updateChapter = (id, chapterData) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
@@ -72,26 +88,57 @@ export const deleteChapter = (id) => async (dispatch) => {
       return data;
     } else {
       const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
       return error;
     }
   } catch (error) {
-    console.log(error);
+    dispatch(errorMsg(error["errors"]));
+    return error;
   }
 };
 
-const initialState = { allChapters: {}, singleChapter: {} };
+export const createChapter = (chapData) => async (dispatch) => {
+  try {
+    const response = await fetch("/api/chapters/new", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(chapData),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(addOne(data));
+      return data;
+    } else {
+      const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
+      return error;
+    }
+  } catch (error) {
+    dispatch(errorMsg(error["errors"]));
+  }
+};
+
+const initialState = { allChapters: {}, singleChapter: {}, errors: [] };
 
 export default function chapterReducer(state = initialState, action) {
   let newState;
   switch (action.type) {
     case GET_CHAPTER:
     case UPDATE_CHAPTER:
+    case CREATE_CHAPTER:
       newState = Object.assign({ ...state });
       newState.singleChapter = action.payload;
       return newState;
     case DELETE_CHAPTER:
       newState = Object.assign({ ...state });
       delete newState.allChapters[action.payload.id];
+      return newState;
+    case ERROR_MESSAGE:
+      newState = Object.assign({ ...state });
+      newState.errors = action.payload;
       return newState;
     default:
       return state;

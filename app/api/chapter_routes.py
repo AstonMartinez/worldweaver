@@ -4,6 +4,7 @@ from app.models.chapter import Chapter
 from flask_login import current_user, login_required
 from .auth_routes import validation_errors_to_error_messages
 from app.forms.update_chapter_form import UpdateChapterForm
+from app.forms.create_chapter_form import CreateChapterForm
 
 chapter_routes = Blueprint('chapters', __name__)
 
@@ -50,3 +51,25 @@ def delete_chapter(chapterId):
         return chapter_dict
     else:
         return { 'error': 'Chapter not found' }, 404
+
+@chapter_routes.route('/new', methods=["POST"])
+def create_chapter():
+    form = CreateChapterForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        book_id = request.json['book_id']
+        title = request.json['title']
+        highlights = request.json['highlights']
+
+        new_chapter = Chapter(
+            book_id=book_id,
+            title=title,
+            highlights=highlights,
+            draft=""
+        )
+
+        db.session.add(new_chapter)
+        db.session.commit()
+        return new_chapter.to_dict()
+    return { 'errors': validation_errors_to_error_messages(form.errors) }, 401

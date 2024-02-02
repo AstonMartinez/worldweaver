@@ -30,9 +30,10 @@ class Event(db.Model):
             'id': self.id,
             'book_id': self.book_id,
             'world_id': self.world_id,
+            'location_id': self.location_id,
             'name': self.name,
             'timeframe': self.timeframe,
             'details': self.details,
             'impact': self.impact,
-            'location': self.location.to_dict(),
+            # 'location': self.location.to_dict(),
         }

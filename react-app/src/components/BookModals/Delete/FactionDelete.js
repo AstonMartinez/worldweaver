@@ -1,5 +1,6 @@
 import { IoClose } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { deleteFaction } from "../../../store/factions";
@@ -8,6 +9,12 @@ import { fetchOneBook } from "../../../store/books";
 const FactionDelete = ({ factionData, bookId }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
+  const factionState = useSelector((state) => state.factions);
+  const [errors, setErrors] = useState(factionState.errors);
+
+  useEffect(() => {
+    setErrors(factionState.errors);
+  }, [dispatch, errors]);
 
   const handleDelete = async () => {
     try {
@@ -25,13 +32,23 @@ const FactionDelete = ({ factionData, bookId }) => {
       });
     } finally {
       toast.dismiss("loadingToast");
-      toast.success("Successfully deleted", {
-        position: "top-center",
-        autoClose: 3000,
-        theme: "dark",
-      });
-      dispatch(fetchOneBook(bookId));
-      closeModal();
+      if (errors.length === 0) {
+        toast.success("Successfully deleted", {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "dark",
+        });
+        dispatch(fetchOneBook(bookId));
+        closeModal();
+      } else {
+        for (let i = 0; i < errors.length; i++) {
+          toast.error(errors[i], {
+            position: "top-center",
+            theme: "dark",
+          });
+        }
+        return;
+      }
     }
   };
 

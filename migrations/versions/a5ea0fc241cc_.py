@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 5ea850ba60f1
+Revision ID: a5ea0fc241cc
 Revises: 
-Create Date: 2024-01-29 18:26:52.842549
+Create Date: 2024-01-30 18:47:09.754940
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '5ea850ba60f1'
+revision = 'a5ea0fc241cc'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -52,6 +52,16 @@ def upgrade():
     sa.ForeignKeyConstraint(['book_id'], ['books.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('elements',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('author_id', sa.Integer(), nullable=False),
+    sa.Column('book_id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(length=255), nullable=True),
+    sa.Column('details', sa.String(length=5000), nullable=True),
+    sa.ForeignKeyConstraint(['author_id'], ['users.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['book_id'], ['books.id'], ondelete='CASCADE'),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('worlds',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('author_id', sa.Integer(), nullable=False),
@@ -59,6 +69,12 @@ def upgrade():
     sa.Column('name', sa.String(length=255), nullable=True),
     sa.Column('description', sa.String(length=5000), nullable=True),
     sa.Column('notes', sa.String(length=5000), nullable=True),
+    sa.Column('landscape', sa.String(length=5000), nullable=True),
+    sa.Column('natural_resources', sa.String(length=5000), nullable=True),
+    sa.Column('seasons', sa.String(length=5000), nullable=True),
+    sa.Column('weather', sa.String(length=5000), nullable=True),
+    sa.Column('animals', sa.String(length=5000), nullable=True),
+    sa.Column('plants', sa.String(length=5000), nullable=True),
     sa.ForeignKeyConstraint(['author_id'], ['users.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['book_id'], ['books.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
@@ -69,6 +85,20 @@ def upgrade():
     sa.Column('book_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('description', sa.String(length=5000), nullable=True),
+    sa.ForeignKeyConstraint(['book_id'], ['books.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['world_id'], ['worlds.id'], ondelete='SET NULL'),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('magic_types',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('world_id', sa.Integer(), nullable=True),
+    sa.Column('book_id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(length=255), nullable=True),
+    sa.Column('description', sa.String(length=5000), nullable=True),
+    sa.Column('element', sa.String(length=500), nullable=True),
+    sa.Column('rules', sa.String(length=5000), nullable=True),
+    sa.Column('uses', sa.String(length=5000), nullable=True),
+    sa.Column('notes', sa.String(length=5000), nullable=True),
     sa.ForeignKeyConstraint(['book_id'], ['books.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['world_id'], ['worlds.id'], ondelete='SET NULL'),
     sa.PrimaryKeyConstraint('id')
@@ -98,6 +128,25 @@ def upgrade():
     sa.ForeignKeyConstraint(['location_id'], ['locations.id'], ondelete='SET NULL'),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('races',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('world_id', sa.Integer(), nullable=True),
+    sa.Column('book_id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(length=255), nullable=True),
+    sa.Column('classification', sa.String(length=500), nullable=True),
+    sa.Column('appearance', sa.String(length=5000), nullable=True),
+    sa.Column('fashion', sa.String(length=5000), nullable=True),
+    sa.Column('language', sa.String(length=255), nullable=True),
+    sa.Column('status', sa.String(length=1000), nullable=True),
+    sa.Column('religion_and_deities', sa.String(length=5000), nullable=True),
+    sa.Column('primary_location_id', sa.Integer(), nullable=True),
+    sa.Column('society_and_culture', sa.String(length=5000), nullable=True),
+    sa.Column('notes', sa.String(length=5000), nullable=True),
+    sa.ForeignKeyConstraint(['book_id'], ['books.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['primary_location_id'], ['locations.id'], ondelete='SET NULL'),
+    sa.ForeignKeyConstraint(['world_id'], ['worlds.id'], ondelete='CASCADE'),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('characters',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('book_id', sa.Integer(), nullable=False),
@@ -106,6 +155,7 @@ def upgrade():
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('age', sa.Integer(), nullable=True),
     sa.Column('birthday', sa.String(length=255), nullable=True),
+    sa.Column('race', sa.String(length=255), nullable=True),
     sa.Column('traits', sa.String(length=1000), nullable=True),
     sa.Column('personality', sa.String(length=1000), nullable=True),
     sa.Column('quips', sa.String(length=1000), nullable=True),
@@ -122,10 +172,13 @@ def upgrade():
 def downgrade():
     # ### commands auto generated by Alembic - please adjust! ###
     op.drop_table('characters')
+    op.drop_table('races')
     op.drop_table('factions')
     op.drop_table('events')
+    op.drop_table('magic_types')
     op.drop_table('locations')
     op.drop_table('worlds')
+    op.drop_table('elements')
     op.drop_table('chapters')
     op.drop_table('books')
     op.drop_table('users')

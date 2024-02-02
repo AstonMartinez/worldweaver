@@ -27,11 +27,23 @@ def update_world(worldId):
         name = request.json['name']
         description = request.json['description']
         notes = request.json['notes']
+        landscape = request.json['landscape']
+        natural_resources = request.json['natural_resources']
+        seasons = request.json['seasons']
+        weather = request.json['weather']
+        animals = request.json['animals']
+        plants = request.json['plants']
 
         if world:
             world.name = name
             world.description = description
             world.notes = notes
+            world.landscape = landscape
+            world.natural_resources = natural_resources
+            world.seasons = seasons
+            world.weather = weather
+            world.animals = animals
+            world.plants = plants
 
             db.session.commit()
             return world.to_dict()
@@ -62,13 +74,25 @@ def create_world():
         name = request.json['name']
         description = request.json['description']
         notes = request.json['notes']
+        landscape = request.json['landscape']
+        natural_resources = request.json['natural_resources']
+        seasons = request.json['seasons']
+        weather = request.json['weather']
+        animals = request.json['animals']
+        plants = request.json['plants']
 
         new_world = World(
             author_id=author_id,
             book_id=book_id,
             name=name,
             description=description,
-            notes=notes
+            notes=notes,
+            landscape=landscape,
+            natural_resources=natural_resources,
+            seasons=seasons,
+            weather=weather,
+            animals=animals,
+            plants=plants
         )
 
         db.session.add(new_world)

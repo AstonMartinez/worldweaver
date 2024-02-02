@@ -6,6 +6,9 @@ from app.models.world import World
 from app.models.location import Location
 from app.models.event import Event
 from app.models.faction import Faction
+from app.models.race import Race
+from app.models.magic import Magic
+from app.models.element import Element
 from sqlalchemy.sql import text
 
 
@@ -39,7 +42,13 @@ def seed_users():
         author_id=1,
         name='Eldoria',
         description='A realm of enchantment where magic permeates the very air. Eldoria is characterized by mystical landscapes, ancient forests, and towering mountains. At its heart lies the Ephemeral Nexus, a focal point of magical energy connecting different realms and shaping the destiny of the world.',
-        notes="Eldoria's magic is intertwined with the fate of its inhabitants, and the Ephemeral Nexus holds the key to unlocking the secrets of the universe."
+        notes="Eldoria's magic is intertwined with the fate of its inhabitants, and the Ephemeral Nexus holds the key to unlocking the secrets of the universe.",
+        landscape="Eldoria boasts diverse landscapes, including enchanted meadows, ethereal floating islands, crystalline lakes, and sprawling celestial forests.",
+        natural_resources="The land is rich in magical crystals, moonstone ores, and ethereal flora, providing the essential components for potent enchantments and elixirs.",
+        seasons="Eldoria experiences four distinct seasons, each marked by magical phenomena. Spring brings blossoms infused with rejuvenating magic, while autumn leaves carry visions of the future.",
+        weather="The weather is influenced by the Nexus, creating whimsical meteor showers, gentle starlight rains, and occasional auroras that dance across the sky.",
+        animals="Creatures like luminous phoenixes, moonlit unicorns, and astral butterflies inhabit Eldoria. Magical familiars, such as celestial foxes and shadowcat guardians, are revered companions.",
+        plants="Enchanted flora includes shimmering stardust roses, moonshadow vines that weave illusions, and celestial willow trees that grant visions to those who seek their shade."
     )
 
     db.session.add(world1)
@@ -81,6 +90,54 @@ def seed_users():
     )
 
     db.session.add_all([location1, location2, location3, location4, location5])
+    db.session.commit()
+
+    race1 = Race(
+        world_id=1,
+        book_id=1,
+        name='Luminari Elves',
+        classification='Elven',
+        appearance='Luminari Elves have opalescent skin that shimmers in different hues under sunlight. They possess elongated ears, radiant eyes, and hair that glows like starlight.',
+        fashion='They adorn themselves with celestial-inspired attire, often incorporating luminescent materials and intricate jewelry reflecting their connection to the stars.',
+        language='Luminaric, a melodic language with tones reminiscent of celestial harmonies.',
+        status='Revered as celestial emissaries, Luminari Elves hold positions of wisdom and leadership within elven societies.',
+        religion_and_deities='Worshipers of the Starlight Pantheon, with deities embodying aspects of the cosmos.',
+        primary_location_id=1,
+        society_and_culture='Known for their pursuit of knowledge and mastery of celestial magic, Luminari Elves value harmony and cosmic balance.',
+        notes='Luminari Elves are immune to the effects of moonlit curses due to their celestial essence.'
+    )
+
+    race2 = Race(
+        world_id=1,
+        book_id=1,
+        name='Dreadshade Goblins',
+        classification='Goblinoid',
+        appearance='Dreadshade Goblins have charcoal-black skin, blood-red eyes, and sharp, elongated fangs. They are often adorned with ritualistic tattoos symbolizing dark pacts.',
+        fashion='Their clothing is made from shadow-woven fabrics, and they often wear bone accessories as symbols of their allegiance to dark forces.',
+        language='Shadowtongue, a guttural language imbued with dark incantations and ominous undertones.',
+        status='Feared and shunned by other races, Dreadshade Goblins are often associated with malevolent practices.',
+        religion_and_deities='Worshipers of the Abyssal Shadows, entities representing chaos and malevolence.',
+        primary_location_id=2,
+        society_and_culture='Organized into sinister covens, Dreadshade Goblins thrive in the shadows, practicing dark magic and plotting schemes.',
+        notes='They have an innate ability to meld with shadows for stealth and ambush tactics.'
+    )
+
+    race3 = Race(
+        world_id=1,
+        book_id=1,
+        name='Nomadic Skybound Dwarves',
+        classification='Dwarven',
+        appearance='Skybound Dwarves have sturdy builds, ruddy complexions, and eyes that reflect the ever-changing skies. They often wear feathered accessories.',
+        fashion='Their clothing incorporates feathers and airy fabrics, symbolizing their connection to the skies and their nomadic lifestyle.',
+        language='Auran Dwarvish, a dialect influenced by the language of air elementals.',
+        status='Respected traders and skilled artisans, Nomadic Skybound Dwarves are sought after for their airship craftsmanship.',
+        religion_and_deities='Reverence for Skyforged Ancestors, legendary Dwarven airship builders.',
+        primary_location_id=3,
+        society_and_culture='Known for their aerial craftsmanship, they traverse the skies in majestic airships, trading goods and knowledge.',
+        notes='Possess specialized airship crews with adept navigators and elemental engineers.'
+    )
+
+    db.session.add_all([race1, race2, race3])
     db.session.commit()
 
     faction1 = Faction(
@@ -204,6 +261,66 @@ def seed_users():
     )
 
     db.session.add_all([chapter1, chapter2, chapter3])
+    db.session.commit()
+
+    element1 = Element(
+        author_id=1,
+        book_id=1,
+        name="Moonlit Prophecy",
+        details="A foretelling that unfolds during the enchanted moonlit night, revealing cryptic visions and portents. The prophecy intertwines the fates of key characters and sets the stage for an impending cosmic event."
+    )
+
+    element2 = Element(
+        author_id=1,
+        book_id=1,
+        name="Chronicles of the Nexus",
+        details="A mystical tome containing the history, secrets, and spells related to the Ephemeral Nexus. The book becomes a sought-after artifact, unlocking the Nexus's potential and revealing forgotten truths."
+    )
+
+    element3 = Element(
+        author_id=1,
+        book_id=1,
+        name="Harmony Stones",
+        details="Ancient gemstones imbued with the essence of celestial harmony. When brought together, they amplify Luminaric Celestial Magic and are key to restoring balance to Eldoria."
+    )
+
+    db.session.add_all([element1, element2, element3])
+    db.session.commit()
+
+    magic1 = Magic(
+        book_id=1,
+        world_id=1,
+        name="Luminaric Celestial Magic",
+        description="A magic system fueled by the essence of celestial bodies. Practitioners draw power from stars, moons, and planets, channeling cosmic energy for healing, divination, and protection.",
+        element="Celestial",
+        rules="Alignment with celestial bodies enhances magic potency. Overreliance on dark celestial events may lead to unintended consequences.",
+        uses="Healing, celestial divination, starlight illusions, and protection against dark magic.",
+        notes="Luminaric Celestial Magic is sought after for its harmonious effects and ability to counteract malevolent forces."
+    )
+
+    magic2 = Magic(
+        book_id=1,
+        world_id=1,
+        name="Abyssal Shadowcraft",
+        description="A forbidden magic tied to the shadowy abyss. Practitioners harness dark energies to manipulate shadows, create illusions, and tap into the destructive power of the void.",
+        element="Shadow",
+        rules="Unleashing too much abyssal power risks corruption and madness. Shadows can take a toll on the user's sanity.",
+        uses="Stealth, shadow manipulation, illusion casting, and invoking shadow entities.",
+        notes="Mastery of Abyssal Shadowcraft grants the ability to traverse between shadows."
+    )
+
+    magic3 = Magic(
+        book_id=1,
+        world_id=1,
+        name="Auran Skyweaving",
+        description="Elemental magic attuned to the skies and air. Practitioners manipulate air currents, summon breezes, and shape clouds for various effects.",
+        element="Air",
+        rules="Requires attunement to natural air currents. Overuse may disrupt local weather patterns.",
+        uses="Aeromancy, flight augmentation, cloud manipulation, and summoning gentle zephyrs.",
+        notes="Auran Skyweaving is integral to the navigation of airships among Nomadic Skybound Dwarves."
+    )
+
+    db.session.add_all([magic1, magic2, magic3])
     db.session.commit()
 
 
