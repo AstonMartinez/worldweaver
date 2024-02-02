@@ -95,7 +95,7 @@ const RaceDetailsUpdate = ({ raceData, bookId, locationData }) => {
           <IoClose height={18} weight={18} />
         </button>
       </section>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form onSubmit={(e) => handleSubmit(e)} className="modal-form">
         <section>
           <div>
             <label htmlFor="name">Name:</label>

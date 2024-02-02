@@ -1,38 +1,36 @@
 import { GoPencil } from "react-icons/go";
 import { IoTrashOutline } from "react-icons/io5";
-import RaceDetailsUpdate from "../../BookModals/Update/RaceDetailsUpdate";
-import RaceDelete from "../../BookModals/Delete/RaceDelete";
+import StoryElementDelete from "../../BookModals/Delete/StoryElementDelete";
+import StoryElementUpdate from "../../BookModals/Update/StoryElementUpdate";
 import OpenModalButton from "../../OpenModalButton";
 
-const RacesList = ({ raceData, bookId, locationData }) => {
+const StoryElementList = ({ elemData, bookId }) => {
   return (
     <>
       <div>
         <div>
-          <h3>Races</h3>
+          <h3>Story Elements</h3>
         </div>
         <div>
-          {raceData &&
-            raceData.map((race, idx) => (
+          {elemData &&
+            elemData.map((elem, idx) => (
               <div key={idx} style={{ border: "1px solid black" }}>
                 <div>
                   <OpenModalButton
                     buttonText={<GoPencil height={18} width={18} />}
                     modalComponent={
-                      <RaceDetailsUpdate
-                        raceData={race}
-                        bookId={bookId}
-                        locationData={locationData}
-                      />
+                      <StoryElementUpdate elemData={elem} bookId={bookId} />
                     }
                   />
                   <OpenModalButton
                     buttonText={<IoTrashOutline height={18} width={18} />}
-                    modalComponent={<RaceDelete race={race} bookId={bookId} />}
+                    modalComponent={
+                      <StoryElementDelete element={elem} bookId={bookId} />
+                    }
                   />
                 </div>
                 <div>
-                  <h4>{race?.name}</h4>
+                  <h4>{elem?.name}</h4>
                 </div>
               </div>
             ))}
@@ -42,4 +40,4 @@ const RacesList = ({ raceData, bookId, locationData }) => {
   );
 };
 
-export default RacesList;
+export default StoryElementList;

@@ -20,6 +20,10 @@ import CreateEvent from "../BookModals/Create/CreateEvent";
 import CreateChapter from "../BookModals/Create/CreateChapter";
 import RacesList from "./Elements/RacesList";
 import CreateRace from "../BookModals/Create/CreateRace";
+import CreateMagic from "../BookModals/Create/CreateMagic";
+import MagicList from "./Elements/MagicList";
+import StoryElementList from "./Elements/StoryElementList";
+import CreateStoryElement from "../BookModals/Create/CreateStoryElement";
 
 const BookDetails = () => {
   const dispatch = useDispatch();
@@ -57,69 +61,97 @@ const BookDetails = () => {
 
   const addMenu = (
     <ul className={ulClassName} ref={ulRef}>
-      <OpenModalButton
-        buttonText="World"
-        onItemClick={closeMenu}
-        modalComponent={<CreateWorld bookId={bookId} />}
-      />
-      <OpenModalButton
-        buttonText="Location"
-        onItemClick={closeMenu}
-        modalComponent={
-          <CreateLocation bookId={bookId} world={bookData.bookWorld} />
-        }
-      />
-      <OpenModalButton
-        buttonText="Character"
-        onItemClick={closeMenu}
-        modalComponent={
-          <CreateCharacter
-            bookId={bookId}
-            factionsData={bookData.bookFactions}
-            world={bookData.bookWorld}
-            raceData={bookData.bookRaces}
-          />
-        }
-      />
-      <OpenModalButton
-        buttonText="Faction"
-        onItemClick={closeMenu}
-        modalComponent={
-          <CreateFaction
-            bookId={bookId}
-            locationData={bookData.bookLocations}
-          />
-        }
-      />
-      <OpenModalButton
-        buttonText="Event"
-        onItemClick={closeMenu}
-        modalComponent={
-          <CreateEvent
-            bookId={bookId}
-            world={bookData.bookWorld}
-            locationData={bookData.bookLocations}
-          />
-        }
-      />
-      <OpenModalButton
-        buttonText="Chapter"
-        onItemClick={closeMenu}
-        modalComponent={<CreateChapter bookId={bookId} />}
-      />
-      <OpenModalButton
-        buttonText="Race"
-        onItemClick={closeMenu}
-        modalComponent={
-          <CreateRace
-            bookId={bookId}
-            world={bookData?.bookWorld}
-            locationData={bookData.bookLocations}
-          />
-        }
-      />
-      <OpenModalButton buttonText="Story Element" onItemClick={closeMenu} />
-      <OpenModalButton buttonText="Magic" onItemClick={closeMenu} />
+      <li>
+        <OpenModalButton
+          buttonText="World"
+          onItemClick={closeMenu}
+          modalComponent={<CreateWorld bookId={bookId} />}
+        />
+      </li>
+      <li>
+        <OpenModalButton
+          buttonText="Location"
+          onItemClick={closeMenu}
+          modalComponent={
+            <CreateLocation bookId={bookId} world={bookData.bookWorld} />
+          }
+        />
+      </li>
+      <li>
+        <OpenModalButton
+          buttonText="Character"
+          onItemClick={closeMenu}
+          modalComponent={
+            <CreateCharacter
+              bookId={bookId}
+              factionsData={bookData.bookFactions}
+              world={bookData.bookWorld}
+              raceData={bookData.bookRaces}
+            />
+          }
+        />
+      </li>
+      <li>
+        <OpenModalButton
+          buttonText="Faction"
+          onItemClick={closeMenu}
+          modalComponent={
+            <CreateFaction
+              bookId={bookId}
+              locationData={bookData.bookLocations}
+            />
+          }
+        />
+      </li>
+      <li>
+        <OpenModalButton
+          buttonText="Event"
+          onItemClick={closeMenu}
+          modalComponent={
+            <CreateEvent
+              bookId={bookId}
+              world={bookData.bookWorld}
+              locationData={bookData.bookLocations}
+            />
+          }
+        />
+      </li>
+      <li>
+        <OpenModalButton
+          buttonText="Chapter"
+          onItemClick={closeMenu}
+          modalComponent={<CreateChapter bookId={bookId} />}
+        />
+      </li>
+      <li>
+        <OpenModalButton
+          buttonText="Race"
+          onItemClick={closeMenu}
+          modalComponent={
+            <CreateRace
+              bookId={bookId}
+              world={bookData?.bookWorld}
+              locationData={bookData.bookLocations}
+            />
+          }
+        />
+      </li>
+      <li>
+        <OpenModalButton
+          buttonText="Magic"
+          onItemClick={closeMenu}
+          modalComponent={
+            <CreateMagic world={bookData.bookWorld} bookId={bookId} />
+          }
+        />
+      </li>
+      <li>
+        <OpenModalButton
+          buttonText="Story Element"
+          onItemClick={closeMenu}
+          modalComponent={<CreateStoryElement bookId={bookId} />}
+        />
+      </li>
     </ul>
   );
   return (
@@ -142,6 +174,7 @@ const BookDetails = () => {
       </div>
       <div>
         <WorldList worldData={bookData.bookWorld} bookId={bookId} />
+        <ChaptersList chapterData={bookData.bookChapters} bookId={bookId} />
         <LocationsList locationData={bookData.bookLocations} bookId={bookId} />
         <CharactersList
           characterData={bookData.bookCharacters}
@@ -155,7 +188,8 @@ const BookDetails = () => {
         />
         <EventsList eventData={bookData.bookEvents} bookId={bookId} />
         <FactionsList factionData={bookData.bookFactions} bookId={bookId} />
-        <ChaptersList chapterData={bookData.bookChapters} bookId={bookId} />
+        <MagicList magicData={bookData.bookMagic} bookId={bookId} />
+        <StoryElementList elemData={bookData.bookElements} bookId={bookId} />
       </div>
     </>
   );

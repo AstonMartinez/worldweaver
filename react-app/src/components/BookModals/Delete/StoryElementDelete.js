@@ -4,27 +4,27 @@ import { useState, useEffect } from "react";
 import { useModal } from "../../../context/Modal";
 import { toast } from "react-toastify";
 import { fetchOneBook } from "../../../store/books";
-import { deleteRace } from "../../../store/races";
+import { deleteElement } from "../../../store/elements";
 
-const RaceDelete = ({ race, bookId }) => {
+const StoryElementDelete = ({ element, bookId }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
-  const raceState = useSelector((state) => state.races);
-  const [errors, setErrors] = useState(raceState.errors);
+  const elementState = useSelector((state) => state.elements);
+  const [errors, setErrors] = useState(elementState.errors);
 
   useEffect(() => {
-    setErrors(raceState.errors);
+    setErrors(elementState.errors);
   }, [dispatch, errors]);
 
   const handleDelete = async () => {
     try {
-      toast.loading("Deleting race...", {
+      toast.loading("Deleting element...", {
         position: "top-center",
         theme: "dark",
         toastId: "loadingToast",
       });
 
-      await dispatch(deleteRace(race.id));
+      await dispatch(deleteElement(element.id));
     } catch (error) {
       toast.error(error.message, {
         position: "top-center",
@@ -60,7 +60,7 @@ const RaceDelete = ({ race, bookId }) => {
         </button>
       </section>
       <section>
-        <p>Are you sure you want to delete this race?</p>
+        <p>Are you sure you want to delete this story element?</p>
       </section>
       <section>
         <button onClick={handleDelete}>Yes, Delete</button>
@@ -70,4 +70,4 @@ const RaceDelete = ({ race, bookId }) => {
   );
 };
 
-export default RaceDelete;
+export default StoryElementDelete;
