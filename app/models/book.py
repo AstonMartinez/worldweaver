@@ -15,6 +15,8 @@ class Book(db.Model):
     genres = db.Column(db.String(500))
     plot_details = db.Column(db.String(5000))
     style_and_voice = db.Column(db.String(2000))
+    is_template = db.Column(db.Boolean, nullable=False)
+    template_id = db.Column(db.Integer, nullable=True)
 
     # one book many characters
     characters = db.relationship('Character', back_populates='book')
@@ -34,6 +36,6 @@ class Book(db.Model):
             'genres': self.genres,
             'plot_details': self.plot_details,
             'style_and_voice': self.style_and_voice,
-            # 'characters': [char.to_dict() for char in self.characters],
-            # 'chapters': [chap.to_dict() for chap in self.chapters]
+            'is_template': self.is_template,
+            'template_id': self.template_id
         }

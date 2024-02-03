@@ -32,6 +32,8 @@ def seed_users():
         genres='Fantasy, Mystery, Adventure',
         plot_details='In "Whispers of the Ephemeral Nexus," readers will journey through enchanted landscapes, encountering mythical creatures, and solving cryptic riddles that guard the portal to unimaginable realms. A prophecy unfolds as characters grapple with the consequences of their choices, shaping the destiny of Eldoria itself.',
         style_and_voice="Penelope Quillington's prose is a symphony of lyrical enchantment, weaving a tapestry of words that transport readers to realms where reality blurs with dreams. The narrative dances between the poetic and the suspenseful, creating an immersive experience that lingers in the reader's mind.",
+        is_template=True,
+        template_id=0
     )
 
     db.session.add(book1)
