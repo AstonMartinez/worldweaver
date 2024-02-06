@@ -1,0 +1,26 @@
+const locationFood = [
+  "What is the main part of their diet?",
+  "What other things do they eat?",
+  "Where does the food come from?",
+  "Does everyone eat together, or do women and man, parents and children eat separately?",
+  "Where do they eat?",
+  "When do they eat?",
+  "What do they eat?",
+  'What dishes are considered "special"?',
+  "In what order are meals served?",
+  "What utensils are used to eat?",
+  "What type of seasoning is common to the culture?",
+  "What foods / seasonings are luxuries?",
+  "How many meals do they eat each day on average? What are they called?",
+  "How is food preserved?",
+  "Where do they get their water?",
+  "Is water considered a luxury or a commoner's drink?",
+  "What other things do they drink (milk, wine, beer)?",
+  "Where do they get these other things?",
+  "Do they drink throughout the day, or only when they eat?",
+  "Is it acceptable to be drunk in this culture, or is drunkenness considered a sin?",
+  "Can untreated water be drunk safely, or does it need to be boiled / sanitized?",
+  "What drinks are a luxury?",
+];
+
+export default locationFood;
