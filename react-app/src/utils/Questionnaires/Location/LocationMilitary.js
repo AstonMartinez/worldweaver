@@ -13,3 +13,5 @@ const locationMilitary = [
   "Do soldiers get paid for being in the military?",
   "Is the army gender-, age-, or disability-biased? Is it biased in any other ways?",
 ];
+
+export default locationMilitary;

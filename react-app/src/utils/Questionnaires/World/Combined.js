@@ -2,6 +2,7 @@ import worldAgriculture from "./WorldAgriculture";
 import worldAnimals from "./WorldAnimals";
 import worldArt from "./WorldArt";
 import worldArchitecture from "./WorldArchitecture";
+import worldAstronomyPlanets from "./WorldAstronomyPlanets";
 import worldClimate from "./WorldClimate";
 import worldClothingFashion from "./WorldClothingFashion";
 import worldConflict from "./WorldConflict";
@@ -29,6 +30,7 @@ const WorldQuestionnaire = {
   Animals: worldAnimals,
   Architecture: worldArchitecture,
   Art: worldArt,
+  "Astronomy & Planets": worldAstronomyPlanets,
   Climate: worldClimate,
   "Clothing & Fashion": worldClothingFashion,
   Conflict: worldConflict,
