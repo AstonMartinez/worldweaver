@@ -165,7 +165,9 @@ def create_book():
             themes=themes,
             genres=genres,
             plot_details=plot_details,
-            style_and_voice=style_and_voice
+            style_and_voice=style_and_voice,
+            is_template=False,
+            template_id=None
         )
 
         db.session.add(new_book)
