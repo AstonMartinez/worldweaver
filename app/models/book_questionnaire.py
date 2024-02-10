@@ -185,7 +185,7 @@ class BookQuestionnaire(db.Model):
             'mystery_unknowns': [self.unknown_one, self.unknown_two, self.unknown_three, self.unknown_four, self.unknown_five, self.unknown_six, self.unknown_seven, self.unknown_eight, self.unknown_nine, self.unknown_ten, self.unknown_eleven, self.unknown_twelve],
             'beginning': [self.beginning_one, self.beginning_two, self.beginning_three, self.beginning_four, self.beginning_five, self.beginning_six, self.beginning_seven, self.beginning_eight, self.beginning_nine, self.beginning_ten],
             'turning_points': [self.turning_one, self.turning_two, self.turning_three, self.turning_four, self.turning_five, self.turning_six, self.turning_seven, self.turning_eight, self.turning_nine, self.turning_ten],
-            'middle': self.template_id,
+            'middle': [self.middle_one, self.middle_two, self.middle_three, self.middle_four, self.middle_five, self.middle_six, self.middle_seven, self.middle_eight, self.middle_nine, self.middle_ten],
             'ending': [self.end_one, self.end_two, self.end_three, self.end_four, self.end_five, self.end_six, self.end_seven, self.end_eight, self.end_nine, self.end_ten],
             'rags_riches': [self.rags_one, self.rags_two, self.rags_three, self.rags_four, self.rags_five, self.rags_six, self.rags_seven, self.rags_eight, self.rags_nine, self.rags_ten],
             'overcoming_monster': [self.monster_one, self.monster_two, self.monster_three, self.monster_four, self.monster_five, self.monster_six, self.monster_seven, self.monster_eight, self.monster_nine, self.monster_ten],
