@@ -5,6 +5,7 @@ import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 import OpenModalButton from "../OpenModalButton";
 import BaseBookModal from "../Questionnaires/Book/BaseBookModal";
+import BaseChapterModal from "../Questionnaires/Chapter/BaseChapterModal";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -43,7 +44,13 @@ function Navigation({ isLoaded }) {
           modalComponent={<BaseBookModal />}
         />
       </li>
-      <li>Chapter</li>
+      <li>
+        <OpenModalButton
+          buttonText="Chapter"
+          onItemClick={closeMenu}
+          modalComponent={<BaseChapterModal />}
+        />
+      </li>
       <li>Character</li>
       <li>Event</li>
       <li>Faction</li>

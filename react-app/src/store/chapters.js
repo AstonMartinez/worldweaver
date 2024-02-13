@@ -1,4 +1,5 @@
 const GET_CHAPTER = "chapters/getOne";
+const GET_BY_BOOK = "chapters/byBook";
 const UPDATE_CHAPTER = "chapters/updateOne";
 const DELETE_CHAPTER = "chapters/deleteOne";
 const CREATE_CHAPTER = "chapters/addOne";
@@ -6,6 +7,11 @@ const ERROR_MESSAGE = "chapters/errorMsg";
 
 const getOne = (data) => ({
   type: GET_CHAPTER,
+  payload: data,
+});
+
+const byBook = (data) => ({
+  type: GET_BY_BOOK,
   payload: data,
 });
 
@@ -36,6 +42,25 @@ export const fetchChapter = (id) => async (dispatch) => {
     if (response.ok) {
       const data = await response.json();
       dispatch(getOne(data));
+      return data;
+    } else {
+      const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
+      return error;
+    }
+  } catch (error) {
+    dispatch(errorMsg(error["errors"]));
+    return error;
+  }
+};
+
+export const fetchChapterByBook = (bookId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/chapters/books/${bookId}`);
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(byBook(data));
       return data;
     } else {
       const error = await response.json();
@@ -131,6 +156,10 @@ export default function chapterReducer(state = initialState, action) {
     case CREATE_CHAPTER:
       newState = Object.assign({ ...state });
       newState.singleChapter = action.payload;
+      return newState;
+    case GET_BY_BOOK:
+      newState = Object.assign({ ...state });
+      newState.allChapters = action.payload;
       return newState;
     case DELETE_CHAPTER:
       newState = Object.assign({ ...state });
