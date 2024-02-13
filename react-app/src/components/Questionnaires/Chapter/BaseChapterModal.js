@@ -3,6 +3,14 @@ import BookSelect from "./BookSelect";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import ChapterSelect from "./ChapterSelect";
+import NavDots from "./NavDots";
+import CharactersQuestions from "./CharactersQuestions";
+import EventsQuestions from "./EventsQuestions";
+import PlotQuestions from "./PlotQuestions";
+import PurposeQuestions from "./PurposeQuestions";
+import SettingQuestions from "./SettingQuestions";
+import ThemeQuestions from "./ThemeQuestions";
+import SubmitPage from "./SubmitPage";
 
 const BaseChapterModal = () => {
   const [questionnaireData, setQuestionnaireData] = useState({
@@ -19,7 +27,7 @@ const BaseChapterModal = () => {
   const [modalPage, setModalPage] = useState(1);
 
   const incrementPage = (num) => {
-    if (num + 1 > 18) return;
+    if (num + 1 > 9) return;
     setModalPage(num + 1);
   };
 
@@ -28,7 +36,6 @@ const BaseChapterModal = () => {
     setModalPage(num - 1);
   };
 
-  console.log(questionnaireData.bookId);
   return (
     <div>
       <div>
@@ -50,6 +57,54 @@ const BaseChapterModal = () => {
             }}
           />
         )}
+        {modalPage === 3 && (
+          <CharactersQuestions
+            setChars={(data) => {
+              setQuestionnaireData((prev) => ({ ...prev, characters: data }));
+            }}
+          />
+        )}
+        {modalPage === 4 && (
+          <EventsQuestions
+            setEvents={(data) => {
+              setQuestionnaireData((prev) => ({ ...prev, events: data }));
+            }}
+          />
+        )}
+        {modalPage === 5 && (
+          <PlotQuestions
+            setPlot={(data) => {
+              setQuestionnaireData((prev) => ({ ...prev, plot: data }));
+            }}
+          />
+        )}
+        {modalPage === 6 && (
+          <PurposeQuestions
+            setPurpose={(data) => {
+              setQuestionnaireData((prev) => ({ ...prev, purpose: data }));
+            }}
+          />
+        )}
+        {modalPage === 7 && (
+          <SettingQuestions
+            setSetting={(data) => {
+              setQuestionnaireData((prev) => ({ ...prev, setting: data }));
+            }}
+          />
+        )}
+        {modalPage === 8 && (
+          <ThemeQuestions
+            setTheme={(data) => {
+              setQuestionnaireData((prev) => ({ ...prev, theme: data }));
+            }}
+          />
+        )}
+        {modalPage === 9 && (
+          <SubmitPage questionnaireData={questionnaireData} />
+        )}
+      </div>
+      <div>
+        <NavDots pageNum={modalPage} />
       </div>
       <div>
         <div>

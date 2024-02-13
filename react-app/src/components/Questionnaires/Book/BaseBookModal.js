@@ -54,10 +54,12 @@ const BaseBookModal = () => {
   }, [dispatch]);
 
   const incrementPage = (num) => {
+    if (num + 1 > 18) return;
     setModalPage(num + 1);
   };
 
   const decrementPage = (num) => {
+    if (num - 1 < 1) return;
     setModalPage(num - 1);
   };
   return (
