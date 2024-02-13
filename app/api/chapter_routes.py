@@ -8,6 +8,13 @@ from app.forms.create_chapter_form import CreateChapterForm
 
 chapter_routes = Blueprint('chapters', __name__)
 
+@chapter_routes.route('/books/<int:bookId>', methods=["GET"])
+def get_by_book(bookId):
+    chapters = Chapter.query.filter(Chapter.book_id == bookId).all()
+    if chapters:
+        return [chap.to_dict() for chap in chapters]
+    return {}
+
 @chapter_routes.route('/<int:chapterId>', methods=["GET"])
 def get_chapter(chapterId):
     chapter = Chapter.query.get(chapterId)
