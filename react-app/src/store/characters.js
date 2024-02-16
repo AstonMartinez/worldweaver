@@ -1,4 +1,5 @@
 const GET_ONE_CHARACTER = "characters/getOne";
+const GET_BY_BOOK = "characters/byBook";
 const UPDATE_CHARACTER = "characters/updateOne";
 const DELETE_CHARACTER = "characters/deleteOne";
 const CREATE_CHARACTER = "characters/addOne";
@@ -6,6 +7,11 @@ const ERROR_MESSAGE = "characters/errorMsg";
 
 const getOne = (data) => ({
   type: GET_ONE_CHARACTER,
+  payload: data,
+});
+
+const byBook = (data) => ({
+  type: GET_BY_BOOK,
   payload: data,
 });
 
@@ -36,6 +42,25 @@ export const fetchOneCharacter = (id) => async (dispatch) => {
     if (response.ok) {
       const data = await response.json();
       dispatch(getOne(data));
+      return data;
+    } else {
+      const error = await response.json();
+      dispatch(errorMsg(error["errors"]));
+      return error;
+    }
+  } catch (error) {
+    dispatch(errorMsg(error["errors"]));
+    return error;
+  }
+};
+
+export const fetchCharsByBook = (bookId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/characters/books/${bookId}`);
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(byBook(data));
       return data;
     } else {
       const error = await response.json();
@@ -132,6 +157,10 @@ export default function characterReducer(state = initialState, action) {
     case CREATE_CHARACTER:
       newState = Object.assign({ ...state });
       newState.singleCharacter = action.payload;
+      return newState;
+    case GET_BY_BOOK:
+      newState = Object.assign({ ...state });
+      newState.allCharacters = action.payload;
       return newState;
     case DELETE_CHARACTER:
       newState = Object.assign({ ...state });

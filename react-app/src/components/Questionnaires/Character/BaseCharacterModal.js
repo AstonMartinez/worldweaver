@@ -11,6 +11,13 @@ import NavDots from "./NavDots";
 import SubmitPage from "./SubmitPage";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
+import PastFutureQuestions from "./PastFutureQuestions";
+import PersonalityQuestions from "./PersonalityQuestions";
+import PossessionsQuestions from "./PossessionsQuestions";
+import SpiritualityQuestions from "./SpiritualityQuestions";
+import ValuesQuestions from "./ValuesQuestions";
+import AppearanceQuestions from "./AppearanceQuestions";
+import WorkHobbiesQuestions from "./WorkHobbiesQuestions";
 
 const BaseChapterModal = () => {
   const [questionnaireData, setQuestionnaireData] = useState({
@@ -69,34 +76,44 @@ const BaseChapterModal = () => {
           />
         )}
         {modalPage === 3 && (
+          <AppearanceQuestions
+            setAppear={(data) => {
+              setQuestionnaireData((prev) => ({
+                ...prev,
+                appearance: data,
+              }));
+            }}
+          />
+        )}
+        {modalPage === 4 && (
           <BasicsQuestions
             setBasics={(data) => {
               setQuestionnaireData((prev) => ({ ...prev, basics: data }));
             }}
           />
         )}
-        {modalPage === 4 && (
+        {modalPage === 5 && (
           <ConflictQuestions
             setConflict={(data) => {
               setQuestionnaireData((prev) => ({ ...prev, conflict: data }));
             }}
           />
         )}
-        {modalPage === 5 && (
+        {modalPage === 6 && (
           <DailyLifeQuestions
             setDaily={(data) => {
               setQuestionnaireData((prev) => ({ ...prev, dailyLife: data }));
             }}
           />
         )}
-        {modalPage === 6 && (
+        {modalPage === 7 && (
           <FavoritesQuestions
             setFaves={(data) => {
               setQuestionnaireData((prev) => ({ ...prev, favorites: data }));
             }}
           />
         )}
-        {modalPage === 7 && (
+        {modalPage === 8 && (
           <FriendsFamilyQuestions
             setFF={(data) => {
               setQuestionnaireData((prev) => ({
@@ -106,19 +123,79 @@ const BaseChapterModal = () => {
             }}
           />
         )}
-        {modalPage === 8 && (
+        {modalPage === 9 && (
           <LoveQuestions
             setLove={(data) => {
               setQuestionnaireData((prev) => ({ ...prev, love: data }));
             }}
           />
         )}
-        {modalPage === 9 && (
+        {modalPage === 10 && (
           <MiscQuestions
             setMisc={(data) => {
               setQuestionnaireData((prev) => ({
                 ...prev,
                 miscellaneous: data,
+              }));
+            }}
+          />
+        )}
+        {modalPage === 11 && (
+          <PastFutureQuestions
+            setPastFuture={(data) => {
+              setQuestionnaireData((prev) => ({
+                ...prev,
+                pastAndFuture: data,
+              }));
+            }}
+          />
+        )}
+        {modalPage === 12 && (
+          <PersonalityQuestions
+            setPersonality={(data) => {
+              setQuestionnaireData((prev) => ({
+                ...prev,
+                personality: data,
+              }));
+            }}
+          />
+        )}
+        {modalPage === 13 && (
+          <PossessionsQuestions
+            setPossess={(data) => {
+              setQuestionnaireData((prev) => ({
+                ...prev,
+                possessions: data,
+              }));
+            }}
+          />
+        )}
+        {modalPage === 14 && (
+          <SpiritualityQuestions
+            setSpirit={(data) => {
+              setQuestionnaireData((prev) => ({
+                ...prev,
+                spirituality: data,
+              }));
+            }}
+          />
+        )}
+        {modalPage === 15 && (
+          <ValuesQuestions
+            setValues={(data) => {
+              setQuestionnaireData((prev) => ({
+                ...prev,
+                values: data,
+              }));
+            }}
+          />
+        )}
+        {modalPage === 16 && (
+          <WorkHobbiesQuestions
+            setWH={(data) => {
+              setQuestionnaireData((prev) => ({
+                ...prev,
+                workAndHobbies: data,
               }));
             }}
           />
