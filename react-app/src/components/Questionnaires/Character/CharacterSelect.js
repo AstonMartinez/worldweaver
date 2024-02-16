@@ -17,9 +17,22 @@ const CharacterSelect = ({ bookId, setChar }) => {
         <p>Which character would you like to create a questionnaire for?</p>
       </div>
       <div>
-        {bookCharacters?.map((char) => (
-          <div onClick={() => setSelectedChar(char)}>{char.name}</div>
-        ))}
+        {bookId ? (
+          <>
+            {bookCharacters &&
+              bookCharacters?.map((char, idx) => (
+                <div key={idx} onClick={() => setSelectedChar(char)}>
+                  {char.name}
+                </div>
+              ))}
+          </>
+        ) : (
+          <>
+            <div>
+              <h4>Please select a book to choose a character.</h4>
+            </div>
+          </>
+        )}
       </div>
       <div>
         <button onClick={() => setChar(selectedChar)}>Save & Continue</button>

@@ -17,8 +17,10 @@ const BookSelect = ({ setBook }) => {
         <p>Which book would you like to create a questionnaire for?</p>
       </div>
       <div>
-        {Object.values(userBooks).map((bk) => (
-          <div onClick={() => setSelectedBook(bk)}>{bk.title}</div>
+        {Object.values(userBooks).map((bk, idx) => (
+          <div key={idx} onClick={() => setSelectedBook(bk)}>
+            {bk.title}
+          </div>
         ))}
       </div>
       <div>

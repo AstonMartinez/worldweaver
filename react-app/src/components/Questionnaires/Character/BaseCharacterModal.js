@@ -18,8 +18,9 @@ import SpiritualityQuestions from "./SpiritualityQuestions";
 import ValuesQuestions from "./ValuesQuestions";
 import AppearanceQuestions from "./AppearanceQuestions";
 import WorkHobbiesQuestions from "./WorkHobbiesQuestions";
+import CharacterSelect from "./CharacterSelect";
 
-const BaseChapterModal = () => {
+const BaseCharacterModal = () => {
   const [questionnaireData, setQuestionnaireData] = useState({
     bookId: null,
     characterId: null,
@@ -65,7 +66,7 @@ const BaseChapterModal = () => {
           />
         )}
         {modalPage === 2 && (
-          <ChapterSelect
+          <CharacterSelect
             bookId={questionnaireData.bookId}
             setChar={(data) => {
               setQuestionnaireData((prev) => ({
@@ -228,4 +229,4 @@ const BaseChapterModal = () => {
   );
 };
 
-export default BaseChapterModal;
+export default BaseCharacterModal;
