@@ -6,6 +6,7 @@ import "./Navigation.css";
 import OpenModalButton from "../OpenModalButton";
 import BaseBookModal from "../Questionnaires/Book/BaseBookModal";
 import BaseChapterModal from "../Questionnaires/Chapter/BaseChapterModal";
+import BaseCharacterModal from "../Questionnaires/Character/BaseCharacterModal";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -51,7 +52,13 @@ function Navigation({ isLoaded }) {
           modalComponent={<BaseChapterModal />}
         />
       </li>
-      <li>Character</li>
+      <li>
+        <OpenModalButton
+          buttonText="Character"
+          onItemClick={closeMenu}
+          modalComponent={<BaseCharacterModal />}
+        />
+      </li>
       <li>Event</li>
       <li>Faction</li>
       <li>Location</li>

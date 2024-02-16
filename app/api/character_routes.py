@@ -8,6 +8,13 @@ from app.forms.create_character_form import CreateCharacterForm
 
 character_routes = Blueprint('characters', __name__)
 
+@character_routes.route('/books/<int:bookId>', methods=["GET"])
+def get_by_book(bookId):
+    chars = Character.query.filter(Character.book_id == bookId)
+    if chars:
+        return [char.to_dict() for char in chars]
+    return {}
+
 @character_routes.route('/<int:charId>', methods=["GET"])
 def get_one_char(charId):
     char = Character.query.get(charId)
