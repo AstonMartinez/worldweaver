@@ -1,7 +1,7 @@
 import { useState } from "react";
-import CharacterQuestionnaire from "../../../utils/Questionnaires/Character/Combined";
+import RaceQuestionnaire from "../../../utils/Questionnaires/Race/Combined";
 
-const ValuesQuestions = ({ setValues }) => {
+const HistoryQuestions = ({ setHistory }) => {
   const [inputs, setInputs] = useState({
     one: "",
     two: "",
@@ -17,12 +17,12 @@ const ValuesQuestions = ({ setValues }) => {
   return (
     <>
       <div>
-        <h3>Values</h3>
+        <h3>History</h3>
       </div>
       <div>
         <section>
           <div>
-            <label htmlFor="one">{CharacterQuestionnaire.Values[0]}</label>
+            <label htmlFor="one">{RaceQuestionnaire.History[0]}</label>
           </div>
           <div>
             <textarea
@@ -34,7 +34,7 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="two">{CharacterQuestionnaire.Values[1]}</label>
+            <label htmlFor="two">{RaceQuestionnaire.History[1]}</label>
           </div>
           <div>
             <textarea
@@ -46,7 +46,7 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="three">{CharacterQuestionnaire.Values[2]}</label>
+            <label htmlFor="three">{RaceQuestionnaire.History[2]}</label>
           </div>
           <div>
             <textarea
@@ -58,7 +58,7 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="four">{CharacterQuestionnaire.Values[3]}</label>
+            <label htmlFor="four">{RaceQuestionnaire.History[3]}</label>
           </div>
           <div>
             <textarea
@@ -70,7 +70,7 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="five">{CharacterQuestionnaire.Values[4]}</label>
+            <label htmlFor="five">{RaceQuestionnaire.History[4]}</label>
           </div>
           <div>
             <textarea
@@ -82,7 +82,7 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="six">{CharacterQuestionnaire.Values[5]}</label>
+            <label htmlFor="six">{RaceQuestionnaire.History[5]}</label>
           </div>
           <div>
             <textarea
@@ -94,10 +94,10 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
       </div>
       <div>
-        <button onClick={() => setValues(inputs)}>Save & Continue</button>
+        <button onClick={() => setHistory(inputs)}>Save & Continue</button>
       </div>
     </>
   );
 };
 
-export default ValuesQuestions;
+export default HistoryQuestions;

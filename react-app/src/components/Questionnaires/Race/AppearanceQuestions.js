@@ -1,7 +1,7 @@
 import { useState } from "react";
-import CharacterQuestionnaire from "../../../utils/Questionnaires/Character/Combined";
+import RaceQuestionnaire from "../../../utils/Questionnaires/Race/Combined";
 
-const WorkHobbiesQuestions = ({ setWH }) => {
+const AppearanceQuestions = ({ setAppear }) => {
   const [inputs, setInputs] = useState({
     one: "",
     two: "",
@@ -13,6 +13,9 @@ const WorkHobbiesQuestions = ({ setWH }) => {
     eight: "",
     nine: "",
     ten: "",
+    eleven: "",
+    twelve: "",
+    thirteen: "",
   });
 
   const handleInputChange = async (e) => {
@@ -21,14 +24,12 @@ const WorkHobbiesQuestions = ({ setWH }) => {
   return (
     <>
       <div>
-        <h3>Work & Hobbies</h3>
+        <h3>Appearance</h3>
       </div>
       <div>
         <section>
           <div>
-            <label htmlFor="one">
-              {CharacterQuestionnaire["Work & Hobbies"][0]}
-            </label>
+            <label htmlFor="one">{RaceQuestionnaire.Appearance[0]}</label>
           </div>
           <div>
             <textarea
@@ -40,9 +41,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="two">
-              {CharacterQuestionnaire["Work & Hobbies"][1]}
-            </label>
+            <label htmlFor="two">{RaceQuestionnaire.Appearance[1]}</label>
           </div>
           <div>
             <textarea
@@ -54,9 +53,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="three">
-              {CharacterQuestionnaire["Work & Hobbies"][2]}
-            </label>
+            <label htmlFor="three">{RaceQuestionnaire.Appearance[2]}</label>
           </div>
           <div>
             <textarea
@@ -68,9 +65,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="four">
-              {CharacterQuestionnaire["Work & Hobbies"][3]}
-            </label>
+            <label htmlFor="four">{RaceQuestionnaire.Appearance[3]}</label>
           </div>
           <div>
             <textarea
@@ -82,9 +77,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="five">
-              {CharacterQuestionnaire["Work & Hobbies"][4]}
-            </label>
+            <label htmlFor="five">{RaceQuestionnaire.Appearance[4]}</label>
           </div>
           <div>
             <textarea
@@ -96,9 +89,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="six">
-              {CharacterQuestionnaire["Work & Hobbies"][5]}
-            </label>
+            <label htmlFor="six">{RaceQuestionnaire.Appearance[5]}</label>
           </div>
           <div>
             <textarea
@@ -110,9 +101,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="seven">
-              {CharacterQuestionnaire["Work & Hobbies"][6]}
-            </label>
+            <label htmlFor="seven">{RaceQuestionnaire.Appearance[6]}</label>
           </div>
           <div>
             <textarea
@@ -124,9 +113,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="eight">
-              {CharacterQuestionnaire["Work & Hobbies"][7]}
-            </label>
+            <label htmlFor="eight">{RaceQuestionnaire.Appearance[7]}</label>
           </div>
           <div>
             <textarea
@@ -138,9 +125,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="nine">
-              {CharacterQuestionnaire["Work & Hobbies"][8]}
-            </label>
+            <label htmlFor="nine">{RaceQuestionnaire.Appearance[8]}</label>
           </div>
           <div>
             <textarea
@@ -152,9 +137,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="ten">
-              {CharacterQuestionnaire["Work & Hobbies"][9]}
-            </label>
+            <label htmlFor="ten">{RaceQuestionnaire.Appearance[9]}</label>
           </div>
           <div>
             <textarea
@@ -164,12 +147,48 @@ const WorkHobbiesQuestions = ({ setWH }) => {
             />
           </div>
         </section>
+        <section>
+          <div>
+            <label htmlFor="eleven">{RaceQuestionnaire.Appearance[10]}</label>
+          </div>
+          <div>
+            <textarea
+              name="eleven"
+              value={inputs.eleven}
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+        </section>
+        <section>
+          <div>
+            <label htmlFor="twelve">{RaceQuestionnaire.Appearance[11]}</label>
+          </div>
+          <div>
+            <textarea
+              name="twelve"
+              value={inputs.twelve}
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+        </section>
+        <section>
+          <div>
+            <label htmlFor="thirteen">{RaceQuestionnaire.Appearance[12]}</label>
+          </div>
+          <div>
+            <textarea
+              name="thirteen"
+              value={inputs.thirteen}
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+        </section>
       </div>
       <div>
-        <button onClick={() => setWH(inputs)}>Save & Continue</button>
+        <button onClick={() => setAppear(inputs)}>Save & Continue</button>
       </div>
     </>
   );
 };
 
-export default WorkHobbiesQuestions;
+export default AppearanceQuestions;

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import CharacterQuestionnaire from "../../../utils/Questionnaires/Character/Combined";
+import EventQuestionnaire from "../../../utils/Questionnaires/Event/Combined";
 
-const ValuesQuestions = ({ setValues }) => {
+const EffectQuestions = ({ setEffects }) => {
   const [inputs, setInputs] = useState({
     one: "",
     two: "",
@@ -9,6 +9,7 @@ const ValuesQuestions = ({ setValues }) => {
     four: "",
     five: "",
     six: "",
+    seven: "",
   });
 
   const handleInputChange = async (e) => {
@@ -17,12 +18,12 @@ const ValuesQuestions = ({ setValues }) => {
   return (
     <>
       <div>
-        <h3>Values</h3>
+        <h3>Effect</h3>
       </div>
       <div>
         <section>
           <div>
-            <label htmlFor="one">{CharacterQuestionnaire.Values[0]}</label>
+            <label htmlFor="one">{EventQuestionnaire.Effect[0]}</label>
           </div>
           <div>
             <textarea
@@ -34,7 +35,7 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="two">{CharacterQuestionnaire.Values[1]}</label>
+            <label htmlFor="two">{EventQuestionnaire.Effect[1]}</label>
           </div>
           <div>
             <textarea
@@ -46,7 +47,7 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="three">{CharacterQuestionnaire.Values[2]}</label>
+            <label htmlFor="three">{EventQuestionnaire.Effect[2]}</label>
           </div>
           <div>
             <textarea
@@ -58,7 +59,7 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="four">{CharacterQuestionnaire.Values[3]}</label>
+            <label htmlFor="four">{EventQuestionnaire.Effect[3]}</label>
           </div>
           <div>
             <textarea
@@ -70,7 +71,7 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="five">{CharacterQuestionnaire.Values[4]}</label>
+            <label htmlFor="five">{EventQuestionnaire.Effect[4]}</label>
           </div>
           <div>
             <textarea
@@ -82,7 +83,7 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="six">{CharacterQuestionnaire.Values[5]}</label>
+            <label htmlFor="six">{EventQuestionnaire.Effect[5]}</label>
           </div>
           <div>
             <textarea
@@ -92,12 +93,24 @@ const ValuesQuestions = ({ setValues }) => {
             />
           </div>
         </section>
+        <section>
+          <div>
+            <label htmlFor="seven">{EventQuestionnaire.Effect[6]}</label>
+          </div>
+          <div>
+            <textarea
+              name="seven"
+              value={inputs.seven}
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+        </section>
       </div>
       <div>
-        <button onClick={() => setValues(inputs)}>Save & Continue</button>
+        <button onClick={() => setEffects(inputs)}>Save & Continue</button>
       </div>
     </>
   );
 };
 
-export default ValuesQuestions;
+export default EffectQuestions;

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import CharacterQuestionnaire from "../../../utils/Questionnaires/Character/Combined";
+import RaceQuestionnaire from "../../../utils/Questionnaires/Race/Combined";
 
-const PastFutureQuestions = ({ setPastFuture }) => {
+const LanguageQuestions = ({ setLang }) => {
   const [inputs, setInputs] = useState({
     one: "",
     two: "",
@@ -17,11 +17,6 @@ const PastFutureQuestions = ({ setPastFuture }) => {
     twelve: "",
     thirteen: "",
     fourteen: "",
-    fifteen: "",
-    sixteen: "",
-    seventeen: "",
-    eighteen: "",
-    nineteen: "",
   });
 
   const handleInputChange = async (e) => {
@@ -30,14 +25,12 @@ const PastFutureQuestions = ({ setPastFuture }) => {
   return (
     <>
       <div>
-        <h3>Past & Future</h3>
+        <h3>Language</h3>
       </div>
       <div>
         <section>
           <div>
-            <label htmlFor="one">
-              {CharacterQuestionnaire["Past & Future"][0]}
-            </label>
+            <label htmlFor="one">{RaceQuestionnaire.Language[0]}</label>
           </div>
           <div>
             <textarea
@@ -49,9 +42,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="two">
-              {CharacterQuestionnaire["Past & Future"][1]}
-            </label>
+            <label htmlFor="two">{RaceQuestionnaire.Language[1]}</label>
           </div>
           <div>
             <textarea
@@ -63,9 +54,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="three">
-              {CharacterQuestionnaire["Past & Future"][2]}
-            </label>
+            <label htmlFor="three">{RaceQuestionnaire.Language[2]}</label>
           </div>
           <div>
             <textarea
@@ -77,9 +66,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="four">
-              {CharacterQuestionnaire["Past & Future"][3]}
-            </label>
+            <label htmlFor="four">{RaceQuestionnaire.Language[3]}</label>
           </div>
           <div>
             <textarea
@@ -91,9 +78,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="five">
-              {CharacterQuestionnaire["Past & Future"][4]}
-            </label>
+            <label htmlFor="five">{RaceQuestionnaire.Language[4]}</label>
           </div>
           <div>
             <textarea
@@ -105,9 +90,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="six">
-              {CharacterQuestionnaire["Past & Future"][5]}
-            </label>
+            <label htmlFor="six">{RaceQuestionnaire.Language[5]}</label>
           </div>
           <div>
             <textarea
@@ -119,9 +102,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="seven">
-              {CharacterQuestionnaire["Past & Future"][6]}
-            </label>
+            <label htmlFor="seven">{RaceQuestionnaire.Language[6]}</label>
           </div>
           <div>
             <textarea
@@ -133,9 +114,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="eight">
-              {CharacterQuestionnaire["Past & Future"][7]}
-            </label>
+            <label htmlFor="eight">{RaceQuestionnaire.Language[7]}</label>
           </div>
           <div>
             <textarea
@@ -147,9 +126,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="nine">
-              {CharacterQuestionnaire["Past & Future"][8]}
-            </label>
+            <label htmlFor="nine">{RaceQuestionnaire.Language[8]}</label>
           </div>
           <div>
             <textarea
@@ -161,9 +138,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="ten">
-              {CharacterQuestionnaire["Past & Future"][9]}
-            </label>
+            <label htmlFor="ten">{RaceQuestionnaire.Language[9]}</label>
           </div>
           <div>
             <textarea
@@ -175,9 +150,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="eleven">
-              {CharacterQuestionnaire["Past & Future"][10]}
-            </label>
+            <label htmlFor="eleven">{RaceQuestionnaire.Language[10]}</label>
           </div>
           <div>
             <textarea
@@ -189,9 +162,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="twelve">
-              {CharacterQuestionnaire["Past & Future"][11]}
-            </label>
+            <label htmlFor="twelve">{RaceQuestionnaire.Language[11]}</label>
           </div>
           <div>
             <textarea
@@ -203,9 +174,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="thirteen">
-              {CharacterQuestionnaire["Past & Future"][12]}
-            </label>
+            <label htmlFor="thirteen">{RaceQuestionnaire.Language[12]}</label>
           </div>
           <div>
             <textarea
@@ -217,9 +186,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="fourteen">
-              {CharacterQuestionnaire["Past & Future"][13]}
-            </label>
+            <label htmlFor="fourteen">{RaceQuestionnaire.Language[13]}</label>
           </div>
           <div>
             <textarea
@@ -229,82 +196,12 @@ const PastFutureQuestions = ({ setPastFuture }) => {
             />
           </div>
         </section>
-        <section>
-          <div>
-            <label htmlFor="fifteen">
-              {CharacterQuestionnaire["Past & Future"][14]}
-            </label>
-          </div>
-          <div>
-            <textarea
-              name="fifteen"
-              value={inputs.fifteen}
-              onChange={(e) => handleInputChange(e)}
-            />
-          </div>
-        </section>
-        <section>
-          <div>
-            <label htmlFor="sixteen">
-              {CharacterQuestionnaire["Past & Future"][15]}
-            </label>
-          </div>
-          <div>
-            <textarea
-              name="sixteen"
-              value={inputs.sixteen}
-              onChange={(e) => handleInputChange(e)}
-            />
-          </div>
-        </section>
-        <section>
-          <div>
-            <label htmlFor="seventeen">
-              {CharacterQuestionnaire["Past & Future"][16]}
-            </label>
-          </div>
-          <div>
-            <textarea
-              name="seventeen"
-              value={inputs.seventeen}
-              onChange={(e) => handleInputChange(e)}
-            />
-          </div>
-        </section>
-        <section>
-          <div>
-            <label htmlFor="eighteen">
-              {CharacterQuestionnaire["Past & Future"][17]}
-            </label>
-          </div>
-          <div>
-            <textarea
-              name="eighteen"
-              value={inputs.eighteen}
-              onChange={(e) => handleInputChange(e)}
-            />
-          </div>
-        </section>
-        <section>
-          <div>
-            <label htmlFor="nineteen">
-              {CharacterQuestionnaire["Past & Future"][18]}
-            </label>
-          </div>
-          <div>
-            <textarea
-              name="nineteen"
-              value={inputs.nineteen}
-              onChange={(e) => handleInputChange(e)}
-            />
-          </div>
-        </section>
       </div>
       <div>
-        <button onClick={() => setPastFuture(inputs)}>Save & Continue</button>
+        <button onClick={() => setLang(inputs)}>Save & Continue</button>
       </div>
     </>
   );
 };
 
-export default PastFutureQuestions;
+export default LanguageQuestions;

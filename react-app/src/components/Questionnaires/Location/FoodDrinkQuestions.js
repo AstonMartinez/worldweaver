@@ -1,7 +1,7 @@
 import { useState } from "react";
-import CharacterQuestionnaire from "../../../utils/Questionnaires/Character/Combined";
+import LocationQuestionnaire from "../../../utils/Questionnaires/Location/Combined";
 
-const PastFutureQuestions = ({ setPastFuture }) => {
+const FoodDrinkQuestions = ({ setFD }) => {
   const [inputs, setInputs] = useState({
     one: "",
     two: "",
@@ -22,6 +22,9 @@ const PastFutureQuestions = ({ setPastFuture }) => {
     seventeen: "",
     eighteen: "",
     nineteen: "",
+    twenty: "",
+    twentyOne: "",
+    twentyTwo: "",
   });
 
   const handleInputChange = async (e) => {
@@ -30,13 +33,13 @@ const PastFutureQuestions = ({ setPastFuture }) => {
   return (
     <>
       <div>
-        <h3>Past & Future</h3>
+        <h3>Food & Drink</h3>
       </div>
       <div>
         <section>
           <div>
             <label htmlFor="one">
-              {CharacterQuestionnaire["Past & Future"][0]}
+              {LocationQuestionnaire["Food & Drink"][0]}
             </label>
           </div>
           <div>
@@ -50,7 +53,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="two">
-              {CharacterQuestionnaire["Past & Future"][1]}
+              {LocationQuestionnaire["Food & Drink"][1]}
             </label>
           </div>
           <div>
@@ -64,7 +67,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="three">
-              {CharacterQuestionnaire["Past & Future"][2]}
+              {LocationQuestionnaire["Food & Drink"][2]}
             </label>
           </div>
           <div>
@@ -78,7 +81,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="four">
-              {CharacterQuestionnaire["Past & Future"][3]}
+              {LocationQuestionnaire["Food & Drink"][3]}
             </label>
           </div>
           <div>
@@ -92,7 +95,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="five">
-              {CharacterQuestionnaire["Past & Future"][4]}
+              {LocationQuestionnaire["Food & Drink"][4]}
             </label>
           </div>
           <div>
@@ -106,7 +109,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="six">
-              {CharacterQuestionnaire["Past & Future"][5]}
+              {LocationQuestionnaire["Food & Drink"][5]}
             </label>
           </div>
           <div>
@@ -120,7 +123,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="seven">
-              {CharacterQuestionnaire["Past & Future"][6]}
+              {LocationQuestionnaire["Food & Drink"][6]}
             </label>
           </div>
           <div>
@@ -134,7 +137,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="eight">
-              {CharacterQuestionnaire["Past & Future"][7]}
+              {LocationQuestionnaire["Food & Drink"][7]}
             </label>
           </div>
           <div>
@@ -148,7 +151,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="nine">
-              {CharacterQuestionnaire["Past & Future"][8]}
+              {LocationQuestionnaire["Food & Drink"][8]}
             </label>
           </div>
           <div>
@@ -162,7 +165,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="ten">
-              {CharacterQuestionnaire["Past & Future"][9]}
+              {LocationQuestionnaire["Food & Drink"][9]}
             </label>
           </div>
           <div>
@@ -176,7 +179,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="eleven">
-              {CharacterQuestionnaire["Past & Future"][10]}
+              {LocationQuestionnaire["Food & Drink"][10]}
             </label>
           </div>
           <div>
@@ -190,7 +193,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="twelve">
-              {CharacterQuestionnaire["Past & Future"][11]}
+              {LocationQuestionnaire["Food & Drink"][11]}
             </label>
           </div>
           <div>
@@ -204,7 +207,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="thirteen">
-              {CharacterQuestionnaire["Past & Future"][12]}
+              {LocationQuestionnaire["Food & Drink"][12]}
             </label>
           </div>
           <div>
@@ -218,7 +221,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="fourteen">
-              {CharacterQuestionnaire["Past & Future"][13]}
+              {LocationQuestionnaire["Food & Drink"][13]}
             </label>
           </div>
           <div>
@@ -232,7 +235,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="fifteen">
-              {CharacterQuestionnaire["Past & Future"][14]}
+              {LocationQuestionnaire["Food & Drink"][14]}
             </label>
           </div>
           <div>
@@ -246,7 +249,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="sixteen">
-              {CharacterQuestionnaire["Past & Future"][15]}
+              {LocationQuestionnaire["Food & Drink"][15]}
             </label>
           </div>
           <div>
@@ -260,7 +263,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="seventeen">
-              {CharacterQuestionnaire["Past & Future"][16]}
+              {LocationQuestionnaire["Food & Drink"][16]}
             </label>
           </div>
           <div>
@@ -274,7 +277,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="eighteen">
-              {CharacterQuestionnaire["Past & Future"][17]}
+              {LocationQuestionnaire["Food & Drink"][17]}
             </label>
           </div>
           <div>
@@ -288,7 +291,7 @@ const PastFutureQuestions = ({ setPastFuture }) => {
         <section>
           <div>
             <label htmlFor="nineteen">
-              {CharacterQuestionnaire["Past & Future"][18]}
+              {LocationQuestionnaire["Food & Drink"][18]}
             </label>
           </div>
           <div>
@@ -299,12 +302,54 @@ const PastFutureQuestions = ({ setPastFuture }) => {
             />
           </div>
         </section>
+        <section>
+          <div>
+            <label htmlFor="twenty">
+              {LocationQuestionnaire["Food & Drink"][19]}
+            </label>
+          </div>
+          <div>
+            <textarea
+              name="twenty"
+              value={inputs.twenty}
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+        </section>
+        <section>
+          <div>
+            <label htmlFor="twentyOne">
+              {LocationQuestionnaire["Food & Drink"][20]}
+            </label>
+          </div>
+          <div>
+            <textarea
+              name="twentyOne"
+              value={inputs.twentyOne}
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+        </section>
+        <section>
+          <div>
+            <label htmlFor="twentyTwo">
+              {LocationQuestionnaire["Food & Drink"][21]}
+            </label>
+          </div>
+          <div>
+            <textarea
+              name="twentyTwo"
+              value={inputs.twentyTwo}
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+        </section>
       </div>
       <div>
-        <button onClick={() => setPastFuture(inputs)}>Save & Continue</button>
+        <button onClick={() => setFD(inputs)}>Save & Continue</button>
       </div>
     </>
   );
 };
 
-export default PastFutureQuestions;
+export default FoodDrinkQuestions;

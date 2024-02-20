@@ -1,7 +1,7 @@
 import { useState } from "react";
-import CharacterQuestionnaire from "../../../utils/Questionnaires/Character/Combined";
+import LocationQuestionnaire from "../../../utils/Questionnaires/Location/Combined";
 
-const WorkHobbiesQuestions = ({ setWH }) => {
+const EconomyQuestions = ({ setEconomy }) => {
   const [inputs, setInputs] = useState({
     one: "",
     two: "",
@@ -13,6 +13,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
     eight: "",
     nine: "",
     ten: "",
+    eleven: "",
   });
 
   const handleInputChange = async (e) => {
@@ -21,14 +22,12 @@ const WorkHobbiesQuestions = ({ setWH }) => {
   return (
     <>
       <div>
-        <h3>Work & Hobbies</h3>
+        <h3>Economy & Trade</h3>
       </div>
       <div>
         <section>
           <div>
-            <label htmlFor="one">
-              {CharacterQuestionnaire["Work & Hobbies"][0]}
-            </label>
+            <label htmlFor="one">{LocationQuestionnaire.Economy[0]}</label>
           </div>
           <div>
             <textarea
@@ -40,9 +39,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="two">
-              {CharacterQuestionnaire["Work & Hobbies"][1]}
-            </label>
+            <label htmlFor="two">{LocationQuestionnaire.Economy[1]}</label>
           </div>
           <div>
             <textarea
@@ -54,9 +51,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="three">
-              {CharacterQuestionnaire["Work & Hobbies"][2]}
-            </label>
+            <label htmlFor="three">{LocationQuestionnaire.Economy[2]}</label>
           </div>
           <div>
             <textarea
@@ -68,9 +63,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="four">
-              {CharacterQuestionnaire["Work & Hobbies"][3]}
-            </label>
+            <label htmlFor="four">{LocationQuestionnaire.Economy[3]}</label>
           </div>
           <div>
             <textarea
@@ -82,9 +75,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="five">
-              {CharacterQuestionnaire["Work & Hobbies"][4]}
-            </label>
+            <label htmlFor="five">{LocationQuestionnaire.Economy[4]}</label>
           </div>
           <div>
             <textarea
@@ -96,9 +87,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="six">
-              {CharacterQuestionnaire["Work & Hobbies"][5]}
-            </label>
+            <label htmlFor="six">{LocationQuestionnaire.Economy[5]}</label>
           </div>
           <div>
             <textarea
@@ -110,9 +99,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="seven">
-              {CharacterQuestionnaire["Work & Hobbies"][6]}
-            </label>
+            <label htmlFor="seven">{LocationQuestionnaire.Economy[6]}</label>
           </div>
           <div>
             <textarea
@@ -124,9 +111,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="eight">
-              {CharacterQuestionnaire["Work & Hobbies"][7]}
-            </label>
+            <label htmlFor="eight">{LocationQuestionnaire.Economy[7]}</label>
           </div>
           <div>
             <textarea
@@ -138,9 +123,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="nine">
-              {CharacterQuestionnaire["Work & Hobbies"][8]}
-            </label>
+            <label htmlFor="nine">{LocationQuestionnaire.Economy[8]}</label>
           </div>
           <div>
             <textarea
@@ -152,9 +135,7 @@ const WorkHobbiesQuestions = ({ setWH }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="ten">
-              {CharacterQuestionnaire["Work & Hobbies"][9]}
-            </label>
+            <label htmlFor="ten">{LocationQuestionnaire.Economy[9]}</label>
           </div>
           <div>
             <textarea
@@ -164,12 +145,24 @@ const WorkHobbiesQuestions = ({ setWH }) => {
             />
           </div>
         </section>
+        <section>
+          <div>
+            <label htmlFor="eleven">{LocationQuestionnaire.Economy[10]}</label>
+          </div>
+          <div>
+            <textarea
+              name="eleven"
+              value={inputs.eleven}
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+        </section>
       </div>
       <div>
-        <button onClick={() => setWH(inputs)}>Save & Continue</button>
+        <button onClick={() => setEconomy(inputs)}>Save & Continue</button>
       </div>
     </>
   );
 };
 
-export default WorkHobbiesQuestions;
+export default EconomyQuestions;

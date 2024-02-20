@@ -1,14 +1,13 @@
 import { useState } from "react";
-import CharacterQuestionnaire from "../../../utils/Questionnaires/Character/Combined";
+import LocationQuestionnaire from "../../../utils/Questionnaires/Location/Combined";
 
-const ValuesQuestions = ({ setValues }) => {
+const ClimateQuestions = ({ setClimate }) => {
   const [inputs, setInputs] = useState({
     one: "",
     two: "",
     three: "",
     four: "",
     five: "",
-    six: "",
   });
 
   const handleInputChange = async (e) => {
@@ -17,12 +16,14 @@ const ValuesQuestions = ({ setValues }) => {
   return (
     <>
       <div>
-        <h3>Values</h3>
+        <h3>Climate & Weather</h3>
       </div>
       <div>
         <section>
           <div>
-            <label htmlFor="one">{CharacterQuestionnaire.Values[0]}</label>
+            <label htmlFor="one">
+              {LocationQuestionnaire["Climate & Weather"][0]}
+            </label>
           </div>
           <div>
             <textarea
@@ -34,7 +35,9 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="two">{CharacterQuestionnaire.Values[1]}</label>
+            <label htmlFor="two">
+              {LocationQuestionnaire["Climate & Weather"][1]}
+            </label>
           </div>
           <div>
             <textarea
@@ -46,7 +49,9 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="three">{CharacterQuestionnaire.Values[2]}</label>
+            <label htmlFor="three">
+              {LocationQuestionnaire["Climate & Weather"][2]}
+            </label>
           </div>
           <div>
             <textarea
@@ -58,7 +63,9 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="four">{CharacterQuestionnaire.Values[3]}</label>
+            <label htmlFor="four">
+              {LocationQuestionnaire["Climate & Weather"][3]}
+            </label>
           </div>
           <div>
             <textarea
@@ -70,7 +77,9 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="five">{CharacterQuestionnaire.Values[4]}</label>
+            <label htmlFor="five">
+              {LocationQuestionnaire["Climate & Weather"][4]}
+            </label>
           </div>
           <div>
             <textarea
@@ -80,24 +89,12 @@ const ValuesQuestions = ({ setValues }) => {
             />
           </div>
         </section>
-        <section>
-          <div>
-            <label htmlFor="six">{CharacterQuestionnaire.Values[5]}</label>
-          </div>
-          <div>
-            <textarea
-              name="six"
-              value={inputs.six}
-              onChange={(e) => handleInputChange(e)}
-            />
-          </div>
-        </section>
       </div>
       <div>
-        <button onClick={() => setValues(inputs)}>Save & Continue</button>
+        <button onClick={() => setClimate(inputs)}>Save & Continue</button>
       </div>
     </>
   );
 };
 
-export default ValuesQuestions;
+export default ClimateQuestions;

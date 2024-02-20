@@ -1,14 +1,12 @@
 import { useState } from "react";
-import CharacterQuestionnaire from "../../../utils/Questionnaires/Character/Combined";
+import FactionQuestionnaire from "../../../utils/Questionnaires/Faction/Combined";
 
-const ValuesQuestions = ({ setValues }) => {
+const TurfQuestions = ({ setTurf }) => {
   const [inputs, setInputs] = useState({
     one: "",
     two: "",
     three: "",
     four: "",
-    five: "",
-    six: "",
   });
 
   const handleInputChange = async (e) => {
@@ -17,12 +15,12 @@ const ValuesQuestions = ({ setValues }) => {
   return (
     <>
       <div>
-        <h3>Values</h3>
+        <h3>Turf / Territory</h3>
       </div>
       <div>
         <section>
           <div>
-            <label htmlFor="one">{CharacterQuestionnaire.Values[0]}</label>
+            <label htmlFor="one">{FactionQuestionnaire.Turf[0]}</label>
           </div>
           <div>
             <textarea
@@ -34,7 +32,7 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="two">{CharacterQuestionnaire.Values[1]}</label>
+            <label htmlFor="two">{FactionQuestionnaire.Turf[1]}</label>
           </div>
           <div>
             <textarea
@@ -46,7 +44,7 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="three">{CharacterQuestionnaire.Values[2]}</label>
+            <label htmlFor="three">{FactionQuestionnaire.Turf[2]}</label>
           </div>
           <div>
             <textarea
@@ -58,7 +56,7 @@ const ValuesQuestions = ({ setValues }) => {
         </section>
         <section>
           <div>
-            <label htmlFor="four">{CharacterQuestionnaire.Values[3]}</label>
+            <label htmlFor="four">{FactionQuestionnaire.Turf[3]}</label>
           </div>
           <div>
             <textarea
@@ -68,36 +66,12 @@ const ValuesQuestions = ({ setValues }) => {
             />
           </div>
         </section>
-        <section>
-          <div>
-            <label htmlFor="five">{CharacterQuestionnaire.Values[4]}</label>
-          </div>
-          <div>
-            <textarea
-              name="five"
-              value={inputs.five}
-              onChange={(e) => handleInputChange(e)}
-            />
-          </div>
-        </section>
-        <section>
-          <div>
-            <label htmlFor="six">{CharacterQuestionnaire.Values[5]}</label>
-          </div>
-          <div>
-            <textarea
-              name="six"
-              value={inputs.six}
-              onChange={(e) => handleInputChange(e)}
-            />
-          </div>
-        </section>
       </div>
       <div>
-        <button onClick={() => setValues(inputs)}>Save & Continue</button>
+        <button onClick={() => setTurf(inputs)}>Save & Continue</button>
       </div>
     </>
   );
 };
 
-export default ValuesQuestions;
+export default TurfQuestions;
