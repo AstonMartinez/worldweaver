@@ -11,6 +11,7 @@ import BookDetails from "./components/BookDetails";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ChapterView from "./components/ChapterView";
+import ResourceMain from "./components/Resources";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +42,9 @@ function App() {
           </Route>
           <Route exact path="/chapters/:chapterId">
             <ChapterView />
+          </Route>
+          <Route exact path="/resources">
+            <ResourceMain />
           </Route>
         </Switch>
       )}
