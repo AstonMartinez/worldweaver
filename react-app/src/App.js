@@ -15,6 +15,8 @@ import ResourceMain from "./components/Resources";
 import Questionnaires from "./components/Resources/Questionnaires";
 import NameGenerators from "./components/Resources/NameGenerators";
 import OutlineTemplates from "./components/Resources/OutlineTemplates";
+import CharacterArchetypes from "./components/Resources/CharacterArchetypes";
+import Tips from "./components/Resources/Tips";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,6 +59,12 @@ function App() {
           </Route>
           <Route exact path="/resources/templates">
             <OutlineTemplates />
+          </Route>
+          <Route exact path="/resources/archetypes">
+            <CharacterArchetypes />
+          </Route>
+          <Route exact path="/resources/tips">
+            <Tips />
           </Route>
         </Switch>
       )}

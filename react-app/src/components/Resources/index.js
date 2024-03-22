@@ -18,6 +18,12 @@ const ResourceMain = () => {
           <li>
             <a href="/resources/generators">Name Generators</a>
           </li>
+          <li>
+            <a href="/resources/archetypes">Character Archetypes</a>
+          </li>
+          <li>
+            <a href="/resources/tips">Tips & Tricks</a>
+          </li>
         </ul>
       </div>
     </div>
