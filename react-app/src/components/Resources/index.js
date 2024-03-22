@@ -9,9 +9,15 @@ const ResourceMain = () => {
       </div>
       <div>
         <ul>
-          <li>Questionnaires</li>
-          <li>Outline Templates</li>
-          <li>Name Generators</li>
+          <li>
+            <a href="/resources/questionnaires">Questionnaires</a>
+          </li>
+          <li>
+            <a href="/resources/templates">Outline Templates</a>
+          </li>
+          <li>
+            <a href="/resources/generators">Name Generators</a>
+          </li>
         </ul>
       </div>
     </div>

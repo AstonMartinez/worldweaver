@@ -13,6 +13,9 @@ const NameGenerators = () => {
   return (
     <div>
       <div>
+        <a href="/resources">Back</a>
+      </div>
+      <div>
         <h2>Name Generators</h2>
       </div>
       <div>
