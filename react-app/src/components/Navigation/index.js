@@ -82,6 +82,9 @@ function Navigation({ isLoaded }) {
       )}
       {sessionUser && <button onClick={openMenu}>Questionnaires</button>}
       {showMenu && menu}
+      <li>
+        <a href="/resources">Resources</a>
+      </li>
     </ul>
   );
 }
